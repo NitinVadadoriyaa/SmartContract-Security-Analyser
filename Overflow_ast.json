@@ -97,7 +97,22 @@
             "type": "ParameterList",
             "parameters": []
           },
-          "returnParameters": [],
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
           "body": {
             "type": "Block",
             "statements": [
@@ -169,6 +184,11 @@
                     }
                   }
                 }
+              },
+              {
+                "type": "NumberLiteral",
+                "number": "5",
+                "subdenomination": null
               }
             ]
           },
@@ -192,6 +212,17 @@
                   "name": "uint256"
                 },
                 "name": "_secondsToIncrease",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "bool"
+                },
+                "name": "x",
                 "storageLocation": null,
                 "isStateVar": false,
                 "isIndexed": false

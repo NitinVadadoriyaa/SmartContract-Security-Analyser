@@ -21,12 +21,13 @@ contract TimeLock {
     mapping(address => uint256) public lockTime;
     uint public age = 18;
     
-    function deposit() external payable {
+    function deposit() external payable returns(uint) {
         balances[msg.sender] += msg.value;
         lockTime[msg.sender] = block.timestamp + 1 weeks;
+        return 5;
     }
 
-    function increaseLockTime(uint256 _secondsToIncrease) public {
+    function increaseLockTime(uint256 _secondsToIncrease, bool x) public {
         lockTime[msg.sender] += _secondsToIncrease;
     }
 
