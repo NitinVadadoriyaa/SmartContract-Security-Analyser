@@ -31,6 +31,10 @@ contract TimeLock {
         lockTime[msg.sender] += _secondsToIncrease;
     }
 
+     function increaseLockTime11 () public {
+       age = !age;
+    }
+
     function withdraw() public {
         require(balances[msg.sender] > 0, "Insufficient funds");
         require(block.timestamp > lockTime[msg.sender], "Lock time not expired");
