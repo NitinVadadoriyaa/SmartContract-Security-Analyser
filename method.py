@@ -33,10 +33,10 @@ def stateVariable():
     allMethods = []
 
     class Operator:
-        def __init__(self,type,baseType,baseName,indexType,parentMember,childMember):
+        def __init__(self,type,value,baseName,indexType,parentMember,childMember):
             self.type = type
-            self.baseType = baseType
-            self.baseName = baseName
+            self.value = value
+            self.baseName = baseName #varName
             self.indexType = indexType
             self.parentMember = parentMember
             self.childMember = childMember
@@ -47,6 +47,9 @@ def stateVariable():
             self.operator = operator
             self.left = left
             self.right = right
+
+    mapping = {}
+
 
     for key in methods:
         if key["type"] == "FunctionDefinition":
@@ -68,7 +71,10 @@ def stateVariable():
                 obj = key["returnParameters"]["parameters"][0]
                 returnParameterList.append(Parameter(obj["typeName"]["type"],obj["typeName"]["name"],obj["name"],obj["storageLocation"],obj["isStateVar"]))
             
-            if len(key["body"]["statements"]) != 0:
+            allMethods.append(Method(funcName,visibility,isConstructor,isFallback,isReceive,stateMutability,parameterList,returnParameterList))
+            
+            allExpression = []
+            if len(key["body"]["statements"]) != 0: #------All Expression of individual function------#
                 statements = key["body"]["statements"]
                 for obj in statements:
                     expType = "None"
@@ -77,82 +83,113 @@ def stateVariable():
                     expRight = "None"
                     
                     type = "None"
-                    baseType = "None"
+                    value = "None"
                     baseName = "None"
                     indexType = "None"
                     parentMember = "None"
                     childMember = "None"
-                    
+                    #----- LEFT --------#
                     if obj["type"] == "ExpressionStatement":
                         obj = obj["expression"]
                         expType = obj["type"]
-                        expOperator = obj["operator"]
-                        type = obj["left"]["type"]
-                        
-                        turn = "base"
-                        if type == "IndexAccess":
-                            turn = "base"
-                        elif type == "MemberAccess":
-                            turn = "expression"
+                        if expType == "BinaryOperation": #----Only binary operation----#
 
-                        baseType = "None" if turn in obj["left"] else obj["left"][turn]["type"]
-                        baseName = "None" if turn in obj["left"] else obj["left"][turn]["name"]
-                        indexType = "None" if "index" in obj["left"] else obj["left"]["index"]["type"]
-                        if "index" in obj["left"]:
-                            if "expression" in obj["left"]["index"]:
-                                parentMember = obj["left"]["index"]["expression"]["name"]
-                            childMember = obj["left"]["index"]["memberName"]
-                        expLeft = Parameter(type,baseType,baseName,indexType,parentMember,childMember)
+                            expOperator = obj["operator"]
+                            
+                            type = obj["left"]["type"]
+                            if type == "IndexAccess":
+                                baseName = obj["left"]["base"]["name"]
+                                indexType = obj["left"]["index"]["type"]
 
-                        type = "None"
-                        baseType = "None"
-                        baseName = "None"
-                        indexType = "None"
-                        parentMember = "None"
-                        childMember = "None"
+                                if indexType == "MemberAccess":
+                                    parentMember = obj["left"]["index"]["expression"]["name"]
+                                    childMember = obj["left"]["index"]["memberName"]
+                                elif indexType == "NumberLiteral":
+                                    value = obj["left"]["number"]
+                            
+                            elif type == "MemberAccess":
+                                parentMember = obj["left"]["expression"]["name"]
+                                childMember = obj["left"]["memberName"]
 
-                        type = obj["right"]["type"]
-                        turn = "base"
-                        if type == "IndexAccess":
-                            turn = "base"
-                        elif type == "MemberAccess":
-                            turn = "expression"
+                            elif type == "Identifier":
+                                baseName = obj["left"]["name"]
 
-                        baseType = "None" if turn in obj["right"] else obj["right"][turn]["type"]
-                        baseName = "None" if turn in obj["right"] else obj["right"][turn]["name"]
-                        indexType = "None" if "index" in obj["right"] else obj["right"]["index"]["type"]
-                        if "index" in obj["right"]:
-                            if "expression" in obj["right"]["index"]:
-                                parentMember = obj["right"]["index"]["expression"]["name"]
-                            childMember = obj["right"]["index"]["memberName"]
-                        expLeft = Parameter(type,baseType,baseName,indexType,parentMember,childMember)
+                            elif type == "NumberLiteral":
+                                value = obj["left"]["number"]
+
+                            elif type == "BooleanLiteral":
+                                value = obj["left"]["value"]
+
+                            expLeft = Operator(type,value,baseName,indexType,parentMember,childMember)
+
+                            #--------RIGHT-------#
+                            type = "None"
+                            value = "None"
+                            baseName = "None"
+                            indexType = "None"
+                            parentMember = "None"
+                            childMember = "None"
+
+                            type = obj["right"]["type"]
+                            if type == "IndexAccess":
+                                baseName = obj["right"]["base"]["name"]
+                                indexType = obj["right"]["index"]["type"]
+
+                                if indexType == "MemberAccess":
+                                    parentMember = obj["right"]["index"]["expression"]["name"]
+                                    childMember = obj["right"]["index"]["memberName"]
+                                elif indexType == "NumberLiteral":
+                                    value = obj["right"]["number"]
+                            
+                            elif type == "MemberAccess":
+                                parentMember = obj["right"]["expression"]["name"]
+                                childMember = obj["right"]["memberName"]
+
+                            elif type == "Identifier":
+                                baseName = obj["right"]["name"]
+
+                            elif type == "NumberLiteral":
+                                value = obj["right"]["number"]
+
+                            elif type == "BooleanLiteral":
+                                value = obj["right"]["value"]
+
+                            expRight = Operator(type,value,baseName,indexType,parentMember,childMember)
+
+                            allExpression.append(Expression(expType,expOperator,expLeft,expRight))
+            mapping[funcName] = allExpression
 
 
-            allMethods.append(Method(funcName,visibility,isConstructor,isFallback,isReceive,stateMutability,parameterList,returnParameterList))
-
-    for method in allMethods:
-        print(method.funcName)
-        if len(method.parameterList) != 0:
-            for par in method.parameterList:
-                print(par.type)
-                print(par.dataType)
-                print(par.varName)
-                print(par.storageLocation)
-                print(par.isStateVar)
-                print()
-        if len(method.returnParameterList) != 0:
-            par = method.returnParameterList[0]
-            print(par.type)
-            print(par.dataType)
-            print(par.varName)
-            print(par.storageLocation)
-            print(par.isStateVar)
-            print()
-
-
-    
+    # for method in allMethods:
+        # print(method.funcName)
+        # if len(method.parameterList) != 0:
+        #     for par in method.parameterList:
+        #         print(par.type)
+        #         print(par.dataType)
+        #         print(par.varName)
+        #         print(par.storageLocation)
+        #         print(par.isStateVar)
+        #         print()
+        # if len(method.returnParameterList) != 0:
+        #     par = method.returnParameterList[0]
+        #     print(par.type)
+        #     print(par.dataType)
+        #     print(par.varName)
+        #     print(par.storageLocation)
+        #     print(par.isStateVar)
+        #     print()
             
-
+    for key in mapping:
+        for exp in mapping[key]:
+            print(exp.type)
+            print(exp.operator)
+            print(exp.left.type)
+            print(exp.left.value)
+            print(exp.left.baseName)#varName
+            print(exp.left.indexType)
+            print(exp.left.parentMember)
+            print(exp.left.childMember)
+            print()
 
 if __name__ == "__main__":
     stateVariable()

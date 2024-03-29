@@ -64,33 +64,6 @@
           "initialValue": null
         },
         {
-          "type": "StateVariableDeclaration",
-          "variables": [
-            {
-              "type": "VariableDeclaration",
-              "typeName": {
-                "type": "ElementaryTypeName",
-                "name": "uint"
-              },
-              "name": "age",
-              "expression": {
-                "type": "NumberLiteral",
-                "number": "18",
-                "subdenomination": null
-              },
-              "visibility": "public",
-              "isStateVar": true,
-              "isDeclaredConst": false,
-              "isIndexed": false
-            }
-          ],
-          "initialValue": {
-            "type": "NumberLiteral",
-            "number": "18",
-            "subdenomination": null
-          }
-        },
-        {
           "type": "FunctionDefinition",
           "name": "deposit",
           "parameters": {
@@ -280,22 +253,48 @@
             "type": "Block",
             "statements": [
               {
-                "type": "ExpressionStatement",
-                "expression": {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "ElementaryTypeName",
+                      "name": "uint"
+                    },
+                    "name": "egg",
+                    "storageLocation": null
+                  }
+                ],
+                "initialValue": {
+                  "type": "NumberLiteral",
+                  "number": "10",
+                  "subdenomination": null
+                }
+              },
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "ElementaryTypeName",
+                      "name": "uint"
+                    },
+                    "name": "age",
+                    "storageLocation": null
+                  }
+                ],
+                "initialValue": {
                   "type": "BinaryOperation",
-                  "operator": "=",
+                  "operator": "+",
                   "left": {
-                    "type": "Identifier",
-                    "name": "age"
+                    "type": "NumberLiteral",
+                    "number": "10",
+                    "subdenomination": null
                   },
                   "right": {
-                    "type": "UnaryOperation",
-                    "operator": "!",
-                    "subExpression": {
-                      "type": "Identifier",
-                      "name": "age"
-                    },
-                    "isPrefix": true
+                    "type": "Identifier",
+                    "name": "egg"
                   }
                 }
               }
