@@ -10,7 +10,8 @@ def stateVariable():
     # print(jsonObject)
 
     methods = jsonObject["children"][1]["subNodes"]
-    
+
+    #----------Method.Parameter-----------------#
     class Parameter:
         def __init__(self,type,dataType,varName,storageLocation,isStateVar):
             self.type = type
@@ -32,6 +33,8 @@ def stateVariable():
 
     allMethods = []
 
+    #----------Expression.Operator-----------------#
+
     class Operator:
         def __init__(self,type,value,baseName,indexType,parentMember,childMember):
             self.type = type
@@ -48,8 +51,26 @@ def stateVariable():
             self.left = left
             self.right = right
 
-    mapping = {}
+    #----------{functionName : Array Of Expression-----------------#
+    functionExpression = {} 
 
+    class LocalVariable:
+        def __init__(self,dataType,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right):
+            self.dataType = dataType
+            self.varName = varName
+            self.storageLoc = storageLoc
+            self.value = value
+            self.intializeType = intializeType
+            self.parentMember = parentMember
+            self.childMember = childMember
+            self.baseName = baseName
+            self.indexType = indexType
+            self.operator = operator
+            self.left = left
+            self.right = right
+
+    #----------{functionName : Array Of LocalVariable-----------------#
+    functionLocalVariable = {}
 
     for key in methods:
         if key["type"] == "FunctionDefinition":
@@ -74,6 +95,8 @@ def stateVariable():
             allMethods.append(Method(funcName,visibility,isConstructor,isFallback,isReceive,stateMutability,parameterList,returnParameterList))
             
             allExpression = []
+            allLocalVariable = []
+
             if len(key["body"]["statements"]) != 0: #------All Expression of individual function------#
                 statements = key["body"]["statements"]
                 for obj in statements:
@@ -82,20 +105,21 @@ def stateVariable():
                     expLeft = "None"
                     expRight = "None"
                     
-                    type = "None"
-                    value = "None"
-                    baseName = "None"
-                    indexType = "None"
-                    parentMember = "None"
-                    childMember = "None"
-                    #----- LEFT --------#
-                    if obj["type"] == "ExpressionStatement":
+                    if obj["type"] == "ExpressionStatement":#--------Only Expression--------#
                         obj = obj["expression"]
                         expType = obj["type"]
                         if expType == "BinaryOperation": #----Only binary operation----#
 
                             expOperator = obj["operator"]
-                            
+
+                            #----- LEFT --------#
+                            type = "None"
+                            value = "None"
+                            baseName = "None"
+                            indexType = "None"
+                            parentMember = "None"
+                            childMember = "None"
+
                             type = obj["left"]["type"]
                             if type == "IndexAccess":
                                 baseName = obj["left"]["base"]["name"]
@@ -157,7 +181,129 @@ def stateVariable():
                             expRight = Operator(type,value,baseName,indexType,parentMember,childMember)
 
                             allExpression.append(Expression(expType,expOperator,expLeft,expRight))
-            mapping[funcName] = allExpression
+
+                    elif obj["type"] == "VariableDeclarationStatement":#--------Only Local Variable--------#
+                        dataType = "None"
+                        varName = "None"
+                        storageLoc = "None"
+                        value = "None"
+                        intializeType = "None"
+                        parentMember = "None"
+                        childMember = "None"
+                        baseName = "None"
+                        indexType = "None"
+                        operator = "None"
+                        left = "None"
+                        right = "None"
+
+                        obj1 = obj["variables"][0]
+                        dataType = obj1["typeName"]["name"]
+                        varName = obj1["name"]
+                        storageLoc = obj1["storageLocation"]
+                        if obj["initialValue"] != None: #-----------in ast null == None in python-----------#
+                            obj1 = obj["initialValue"]
+                            intializeType = obj1["type"]
+                            
+                            if intializeType == "MemberAccess":
+                                parentMember = obj1["expression"]["name"]
+                                childMember = obj1["memberName"]
+
+                            elif intializeType == "IndexAccess":
+                                baseName = obj1["base"]["name"]
+                                indexType = obj1["index"]["type"]
+                                if indexType == "MemberAccess":
+                                    parentMember = obj1["index"]["expression"]["name"]
+                                    childMember = obj1["index"]["memberName"]    
+
+                            elif intializeType == "Identifier":
+                                value = obj1["name"]
+
+                            elif intializeType == "BooleanLiteral":
+                                value = "False" if obj1["value"] == "false" else "true"
+                            
+                            elif intializeType == "NumberLiteral":
+                                value = obj1["number"]
+
+                            elif intializeType == "BinaryOperation":
+                                operator = obj1["operator"]
+                                obj = obj1
+
+                                #----- LEFT --------#
+                                type = "None"
+                                value = "None"
+                                baseName = "None"
+                                indexType = "None"
+                                parentMember = "None"
+                                childMember = "None"
+
+                                type = obj["left"]["type"]
+                                if type == "IndexAccess":
+                                    baseName = obj["left"]["base"]["name"]
+                                    indexType = obj["left"]["index"]["type"]
+
+                                    if indexType == "MemberAccess":
+                                        parentMember = obj["left"]["index"]["expression"]["name"]
+                                        childMember = obj["left"]["index"]["memberName"]
+                                    elif indexType == "NumberLiteral":
+                                        value = obj["left"]["number"]
+                                
+                                elif type == "MemberAccess":
+                                    parentMember = obj["left"]["expression"]["name"]
+                                    childMember = obj["left"]["memberName"]
+
+                                elif type == "Identifier":
+                                    baseName = obj["left"]["name"]
+
+                                elif type == "NumberLiteral":
+                                    value = obj["left"]["number"]
+
+                                elif type == "BooleanLiteral":
+                                    value = obj["left"]["value"]
+
+                                left = Operator(type,value,baseName,indexType,parentMember,childMember)
+
+                                #--------RIGHT-------#
+                                type = "None"
+                                value = "None"
+                                baseName = "None"
+                                indexType = "None"
+                                parentMember = "None"
+                                childMember = "None"
+
+                                type = obj["right"]["type"]
+                                if type == "IndexAccess":
+                                    baseName = obj["right"]["base"]["name"]
+                                    indexType = obj["right"]["index"]["type"]
+
+                                    if indexType == "MemberAccess":
+                                        parentMember = obj["right"]["index"]["expression"]["name"]
+                                        childMember = obj["right"]["index"]["memberName"]
+                                    elif indexType == "NumberLiteral":
+                                        value = obj["right"]["number"]
+                                
+                                elif type == "MemberAccess":
+                                    parentMember = obj["right"]["expression"]["name"]
+                                    childMember = obj["right"]["memberName"]
+
+                                elif type == "Identifier":
+                                    baseName = obj["right"]["name"]
+
+                                elif type == "NumberLiteral":
+                                    value = obj["right"]["number"]
+
+                                elif type == "BooleanLiteral":
+                                    value = obj["right"]["value"]
+
+                                right = Operator(type,value,baseName,indexType,parentMember,childMember)
+                            
+                        else:
+                            value = "False" if dataType == "bool" else "0"
+
+                        allLocalVariable.append(LocalVariable(dataType,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right))
+
+            functionExpression[funcName] = allExpression
+            functionLocalVariable[funcName] = allLocalVariable
+
 
 
     # for method in allMethods:
@@ -179,16 +325,45 @@ def stateVariable():
         #     print(par.isStateVar)
         #     print()
             
-    for key in mapping:
-        for exp in mapping[key]:
-            print(exp.type)
+    # for key in functionExpression:
+    #     for exp in functionExpression[key]:
+    #         print(exp.type)
+    #         print(exp.operator)
+    #         print(exp.left.type)
+    #         print(exp.left.value)
+    #         print(exp.left.baseName)#varName
+    #         print(exp.left.indexType)
+    #         print(exp.left.parentMember)
+    #         print(exp.left.childMember)
+    #         print()
+            
+    for key in functionLocalVariable:
+        print(key)
+        for exp in functionLocalVariable[key]:
+            print(exp.dataType)
+            print(exp.varName)
+            print(exp.storageLoc)
+            print(exp.value)
+            print(exp.intializeType)
+            print(exp.parentMember)
+            print(exp.childMember)
+            print(exp.baseName)
+            print(exp.indexType)
             print(exp.operator)
-            print(exp.left.type)
-            print(exp.left.value)
-            print(exp.left.baseName)#varName
-            print(exp.left.indexType)
-            print(exp.left.parentMember)
-            print(exp.left.childMember)
+            if exp.left != "None":
+                print(exp.left.type)
+                print(exp.left.value)
+                print(exp.left.baseName)#varName
+                print(exp.left.indexType)
+                print(exp.left.parentMember)
+                print(exp.left.childMember)
+            if exp.right != "None":
+                print(exp.right.type)
+                print(exp.right.value)
+                print(exp.right.baseName)#varName
+                print(exp.right.indexType)
+                print(exp.right.parentMember)
+                print(exp.right.childMember)
             print()
 
 if __name__ == "__main__":

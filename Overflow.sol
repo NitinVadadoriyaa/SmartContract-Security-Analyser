@@ -22,6 +22,7 @@ contract TimeLock {
     // uint public age = 18;
     
     function deposit() external payable returns(uint) {
+            uint256 v = balances[msg.sender];
         // balances[msg.sender] += msg.value;
         // lockTime[msg.sender] = block.timestamp + 1 weeks;
         uint256 timestamp = block.timestamp; // Current block timestamp
