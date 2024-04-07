@@ -69,10 +69,11 @@ for key in functionExpression:
             # print(exp.right.parentMember)
             # print(exp.right.childMember)
             # print()
-            if exp.type == "BinaryOperation" and exp.operator == "+=": #TODO *=
-                 if exp.left.baseName in variableDict or exp.left.baseName in functionLocalVariableDict or exp.right.baseName in variableDict or exp.right.baseName in functionLocalVariableDict:
-                      print(exp.left.baseName)
-
+            if exp.type == "BinaryOperation" and (exp.operator == "+=" or exp.operator == "*="):
+                if ((exp.left.baseName in variableDict) or (exp.left.baseName in functionLocalVariableDict)) and ((exp.right.baseName in variableDict) or (exp.right.baseName in functionLocalVariableDict)):#TODO CONSIDER A = A * 100
+                    print()
+                    print("Integer Overflow.")
+                
 # for key in functionLocalVariable:
 #         print(key)
 #         for exp in functionLocalVariable[key]:

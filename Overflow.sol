@@ -19,14 +19,18 @@ before the 1 week waiting period.
 contract TimeLock {
     mapping(address => uint256) public balances;
     mapping(address => uint256) public lockTime;
+    uint  public a;
 
     function deposit() external payable {
         balances[msg.sender] += msg.value;
-        lockTime[msg.sender] = block.timestamp + 1 weeks;
+        lockTime[msg.sender] = block.timestamp;
     }
 
-    function increaseLockTime(uint256 _secondsToIncrease) public {
-        lockTime[msg.sender] += _secondsToIncrease;
+    function increaseLockTime(uint256 _secondsToIncrease) public payable{
+        lockTime[msg.sender] += _secondsToIncrease;//overflow
+        lockTime[msg.sender] = lockTime[msg.sender] + _secondsToIncrease;//overflow
+        lockTime[msg.sender] = lockTime[msg.sender] * _secondsToIncrease;//overflow
+        lockTime[msg.sender] = lockTime[msg.sender] * 100;
     }
 
     function withdraw() public {

@@ -25,22 +25,46 @@ def stateVariable():
     
     #body for Integer-datatype
     class Integer:
-        def __init__(self,dataType,varName,visibility,value = "0",operator = "None",left = "None",right = "None",funcName = "None"):
+        def __init__(self,dataType,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName):
             self.dataType = dataType
             self.varName = varName
             self.visibility = visibility
             self.value = value
+            self.intializeType = intializeType#new
+            self.parentMember = parentMember#new
+            self.childMember = childMember#new
+            self.baseName = baseName#new
+            self.indexType = indexType#new
             self.operator = operator
             self.left = left
             self.right = right
             self.funcName = funcName
+            self.keyTypeName = keyTypeName#new
+            self.valueTypeName = valueTypeName#new
 
     stateVariables = []
 
     for key in stateVariable:
+        dataType = "None"
+        varName = "None"
+        baseName = "None"
+        indexType = "None"
+        intializeType = "None"
+        parentMember = "None"
+        childMember = "None"
+        indexType = "None"
+        operator = "None"
+        funcName = "None"
+        value = "None"
+        keyTypeName = "None"
+        valueTypeName = "None"
+        left = "None"
+        right = "None"
+
         if key["type"] == 'StateVariableDeclaration':
             # print(key["variables"]) #array
             mainObj = key["variables"][0]["typeName"]["type"]
+
             if mainObj == "ElementaryTypeName":
                 dataType = key["variables"][0]["typeName"]["name"]
                 if dataType == "string":
@@ -53,7 +77,7 @@ def stateVariable():
                 else:
                     value = "0"
                 expression = key["variables"][0]["expression"]
-                left = right = operator = funcName = "None"
+                
                 if expression is not None:
                     if expression["type"] == "BooleanLiteral":
                         value = expression["value"]
@@ -86,19 +110,26 @@ def stateVariable():
                         else:
                             right = expression["right"]["name"]
 
+            elif mainObj == "Mapping":
+                dataType = "Mapping"
+                varName = key["variables"][0]["name"]
+                visibility = "public" if key["variables"][0]["visibility"] == "default" else key["variables"][0]["visibility"]
+                keyTypeName = key["variables"][0]["typeName"]["keyType"]["name"] #datatype name
+                valueTypeName = key["variables"][0]["typeName"]["valueType"]["name"] #datatype name"
 
-                stateVariables.append(Integer(dataType,varName,visibility,value,operator,left,right,funcName))
+            stateVariables.append(Integer(dataType,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName))
     
     # for var in stateVariables:
-    #     print("dataType : " + var.dataType)
-    #     print("varName : " + var.varName)
-    #     print("visibility : " + var.visibility)
-    #     print( var.value)
-    #     print("operator : " + var.operator)
-    #     print("left : " + var.left)
-    #     print("right : " + var.right)
-    #     print("funcName : " + var.funcName)
-    #     print()
+        # print("dataType : " + var.dataType)
+        # print("varName : " + var.varName)
+        # print("visibility : " + var.visibility)
+        # print( var.value)
+        # print("operator : " + var.operator)
+        # print("left : " + var.left)
+        # print("right : " + var.right)
+        # print("keyType : " + var.keyTypeName)
+        # print("valueType : " + var.valueTypeName)
+        # print()
     return stateVariables
             
 

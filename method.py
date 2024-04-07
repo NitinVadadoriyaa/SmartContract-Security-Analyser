@@ -178,6 +178,42 @@ def method_Information():
                             elif type == "BooleanLiteral":
                                 value = obj["right"]["value"]
 
+                            elif type == "BinaryOperation": #-- a = a + b --#
+                                obj = obj["right"]
+                                if obj["operator"] == "+":
+                                    expOperator = "+="
+                                elif obj["operator"] == "-":
+                                    expOperator = "-="
+                                elif obj["operator"] == "*":
+                                    expOperator = "*="
+                                elif obj["operator"] == "/":
+                                    expOperator = "/="
+
+                                type = obj["right"]["type"]
+                                if type == "IndexAccess":
+                                    baseName = obj["right"]["base"]["name"]
+                                    indexType = obj["right"]["index"]["type"]
+
+                                if indexType == "MemberAccess":
+                                    parentMember = obj["right"]["index"]["expression"]["name"]
+                                    childMember = obj["right"]["index"]["memberName"]
+                                elif indexType == "NumberLiteral":
+                                    value = obj["right"]["number"]
+                            
+                                elif type == "MemberAccess":
+                                    parentMember = obj["right"]["expression"]["name"]
+                                    childMember = obj["right"]["memberName"]
+
+                                elif type == "Identifier":
+                                    baseName = obj["right"]["name"]
+
+                                elif type == "NumberLiteral":
+                                    value = obj["right"]["number"]
+
+                                elif type == "BooleanLiteral":
+                                    value = obj["right"]["value"]
+
+
                             expRight = Operator(type,value,baseName,indexType,parentMember,childMember)
 
                             allExpression.append(Expression(expType,expOperator,expLeft,expRight))
