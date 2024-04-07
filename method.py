@@ -1,5 +1,5 @@
 
-def stateVariable():
+def method_Information():
     import env
     import build_json
     from enum import Enum
@@ -16,7 +16,7 @@ def stateVariable():
         def __init__(self,type,dataType,varName,storageLocation,isStateVar):
             self.type = type
             self.dataType = dataType
-            self.varName = varName
+            self.varName = varName#variable name
             self.storageLocation = storageLocation
             self.isStateVar = isStateVar
 
@@ -57,7 +57,7 @@ def stateVariable():
     class LocalVariable:
         def __init__(self,dataType,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right):
             self.dataType = dataType
-            self.varName = varName
+            self.varName = varName#variable name
             self.storageLoc = storageLoc
             self.value = value
             self.intializeType = intializeType
@@ -304,6 +304,7 @@ def stateVariable():
             functionExpression[funcName] = allExpression
             functionLocalVariable[funcName] = allLocalVariable
 
+    return allMethods,functionExpression,functionLocalVariable
 
 
     # for method in allMethods:
@@ -326,6 +327,7 @@ def stateVariable():
         #     print()
             
     # for key in functionExpression:
+    #     print("Method Name : " + key)
     #     for exp in functionExpression[key]:
     #         print(exp.type)
     #         print(exp.operator)
@@ -336,35 +338,35 @@ def stateVariable():
     #         print(exp.left.parentMember)
     #         print(exp.left.childMember)
     #         print()
-            
-    for key in functionLocalVariable:
-        print(key)
-        for exp in functionLocalVariable[key]:
-            print(exp.dataType)
-            print(exp.varName)
-            print(exp.storageLoc)
-            print(exp.value)
-            print(exp.intializeType)
-            print(exp.parentMember)
-            print(exp.childMember)
-            print(exp.baseName)
-            print(exp.indexType)
-            print(exp.operator)
-            if exp.left != "None":
-                print(exp.left.type)
-                print(exp.left.value)
-                print(exp.left.baseName)#varName
-                print(exp.left.indexType)
-                print(exp.left.parentMember)
-                print(exp.left.childMember)
-            if exp.right != "None":
-                print(exp.right.type)
-                print(exp.right.value)
-                print(exp.right.baseName)#varName
-                print(exp.right.indexType)
-                print(exp.right.parentMember)
-                print(exp.right.childMember)
-            print()
+        
+    # for key in functionLocalVariable:
+    #     print(key)
+    #     for exp in functionLocalVariable[key]:
+    #         print(exp.dataType)
+    #         print(exp.varName)
+    #         print(exp.storageLoc)
+    #         print(exp.value)
+    #         print(exp.intializeType)
+    #         print(exp.parentMember)
+    #         print(exp.childMember)
+    #         print(exp.baseName)
+    #         print(exp.indexType)
+    #         print(exp.operator)
+    #         if exp.left != "None":
+    #             print(exp.left.type)
+    #             print(exp.left.value)
+    #             print(exp.left.baseName)#varName
+    #             print(exp.left.indexType)
+    #             print(exp.left.parentMember)
+    #             print(exp.left.childMember)
+    #         if exp.right != "None":
+    #             print(exp.right.type)
+    #             print(exp.right.value)
+    #             print(exp.right.baseName)#varName
+    #             print(exp.right.indexType)
+    #             print(exp.right.parentMember)
+    #             print(exp.right.childMember)
+    #         print()
 
 if __name__ == "__main__":
-    stateVariable()
+    method_Information()

@@ -70,180 +70,78 @@
             "type": "ParameterList",
             "parameters": []
           },
-          "returnParameters": {
-            "type": "ParameterList",
-            "parameters": [
-              {
-                "type": "Parameter",
-                "typeName": {
-                  "type": "ElementaryTypeName",
-                  "name": "uint"
-                },
-                "name": null,
-                "storageLocation": null,
-                "isStateVar": false,
-                "isIndexed": false
-              }
-            ]
-          },
+          "returnParameters": [],
           "body": {
             "type": "Block",
             "statements": [
               {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "uint256"
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "+=",
+                  "left": {
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "Identifier",
+                      "name": "balances"
                     },
-                    "name": "v",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": {
-                  "type": "IndexAccess",
-                  "base": {
-                    "type": "Identifier",
-                    "name": "balances"
+                    "index": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
                   },
-                  "index": {
+                  "right": {
                     "type": "MemberAccess",
                     "expression": {
                       "type": "Identifier",
                       "name": "msg"
                     },
-                    "memberName": "sender"
+                    "memberName": "value"
                   }
                 }
               },
               {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "uint256"
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "Identifier",
+                      "name": "lockTime"
                     },
-                    "name": "timestamp",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": {
-                  "type": "MemberAccess",
-                  "expression": {
-                    "type": "Identifier",
-                    "name": "block"
+                    "index": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
                   },
-                  "memberName": "timestamp"
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": "+",
+                    "left": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "block"
+                      },
+                      "memberName": "timestamp"
+                    },
+                    "right": {
+                      "type": "NumberLiteral",
+                      "number": "1",
+                      "subdenomination": "weeks"
+                    }
+                  }
                 }
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "address"
-                    },
-                    "name": "sender",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": {
-                  "type": "MemberAccess",
-                  "expression": {
-                    "type": "Identifier",
-                    "name": "msg"
-                  },
-                  "memberName": "sender"
-                }
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "bool"
-                    },
-                    "name": "boo",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": {
-                  "type": "BooleanLiteral",
-                  "value": true
-                }
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "bool"
-                    },
-                    "name": "defaultBoo",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": null
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "uint256"
-                    },
-                    "name": "defaultUint",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": null
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "int256"
-                    },
-                    "name": "defaultInt",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": null
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "address"
-                    },
-                    "name": "defaultAddr",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": null
-              },
-              {
-                "type": "NumberLiteral",
-                "number": "5",
-                "subdenomination": null
               }
             ]
           },
@@ -256,58 +154,50 @@
         },
         {
           "type": "FunctionDefinition",
-          "name": "increaseLockTime11",
+          "name": "increaseLockTime",
           "parameters": {
             "type": "ParameterList",
-            "parameters": []
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint256"
+                },
+                "name": "_secondsToIncrease",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
           },
           "returnParameters": [],
           "body": {
             "type": "Block",
             "statements": [
               {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "uint"
-                    },
-                    "name": "egg",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": {
-                  "type": "NumberLiteral",
-                  "number": "10",
-                  "subdenomination": null
-                }
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "uint"
-                    },
-                    "name": "age",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": {
+                "type": "ExpressionStatement",
+                "expression": {
                   "type": "BinaryOperation",
-                  "operator": "+",
+                  "operator": "+=",
                   "left": {
-                    "type": "NumberLiteral",
-                    "number": "10",
-                    "subdenomination": null
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "Identifier",
+                      "name": "lockTime"
+                    },
+                    "index": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
                   },
                   "right": {
                     "type": "Identifier",
-                    "name": "egg"
+                    "name": "_secondsToIncrease"
                   }
                 }
               }
@@ -470,45 +360,6 @@
                     "number": "0",
                     "subdenomination": null
                   }
-                }
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "bool"
-                    },
-                    "name": "sent",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": {
-                  "type": "BooleanLiteral",
-                  "value": true
-                }
-              },
-              {
-                "type": "ExpressionStatement",
-                "expression": {
-                  "type": "FunctionCall",
-                  "expression": {
-                    "type": "Identifier",
-                    "name": "require"
-                  },
-                  "arguments": [
-                    {
-                      "type": "Identifier",
-                      "name": "sent"
-                    },
-                    {
-                      "type": "stringLiteral",
-                      "value": "Failed to send Ether"
-                    }
-                  ],
-                  "names": []
                 }
               }
             ]

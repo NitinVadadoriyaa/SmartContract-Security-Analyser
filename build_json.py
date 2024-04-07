@@ -1,7 +1,8 @@
 def build_json(fileName):
     import json
 
-    with open(fileName,'r') as file:
+    # print(fileName)
+    with open(f"/home/nitin/Desktop/Tool/{fileName}",'r') as file:
         jsonData = file.read()
         jsonObject = json.loads(jsonData)
     
