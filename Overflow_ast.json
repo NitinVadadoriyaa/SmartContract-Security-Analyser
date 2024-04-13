@@ -152,6 +152,41 @@
                     "memberName": "timestamp"
                   }
                 }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "UnaryOperation",
+                  "operator": "--",
+                  "subExpression": {
+                    "type": "Identifier",
+                    "name": "a"
+                  },
+                  "isPrefix": false
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "a"
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": "-",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "a"
+                    },
+                    "right": {
+                      "type": "Identifier",
+                      "name": "a"
+                    }
+                  }
+                }
               }
             ]
           },

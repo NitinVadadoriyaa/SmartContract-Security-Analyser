@@ -24,6 +24,8 @@ contract TimeLock {
     function deposit() external payable {
         balances[msg.sender] += msg.value;
         lockTime[msg.sender] = block.timestamp;
+        a--;
+        a = a - a;
     }
 
     function increaseLockTime(uint256 _secondsToIncrease) public payable{

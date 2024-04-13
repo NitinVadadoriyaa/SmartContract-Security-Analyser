@@ -72,6 +72,16 @@ def method_Information():
     #----------{functionName : Array Of LocalVariable-----------------#
     functionLocalVariable = {}
 
+    class ConditionStatment:
+        def __init__(self,type,operator,left,right):
+            self.type = type
+            self.operator = operator
+            self.left = left
+            self.right = right
+    
+    #----------{Index : Array Of All Present ConditionStatment-----------------#
+    AllConditionStatment = []
+
     for key in methods:
         if key["type"] == "FunctionDefinition":
             funcName = key["name"]
@@ -337,6 +347,82 @@ def method_Information():
 
                         allLocalVariable.append(LocalVariable(dataType,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right))
 
+                    elif obj["type"] == "IfStatement":#--------Only Local Variable--------#
+                        type = obj["condition"]["type"]
+                        operator = obj["condition"]["operator"]
+                        
+                        #----- LEFT --------#
+                        Lefttype = "None"
+                        value = "None"
+                        baseName = "None"
+                        indexType = "None"
+                        parentMember = "None"
+                        childMember = "None"
+                        
+                        obj = obj["condition"]
+                        Lefttype = obj["left"]["type"]
+                        if Lefttype == "IndexAccess":
+                            baseName = obj["left"]["base"]["name"]
+                            indexType = obj["left"]["index"]["type"]
+
+                            if indexType == "MemberAccess":
+                                parentMember = obj["left"]["index"]["expression"]["name"]
+                                childMember = obj["left"]["index"]["memberName"]
+                            elif indexType == "NumberLiteral":
+                                value = obj["left"]["number"]
+                                
+                        elif Lefttype == "MemberAccess":
+                                parentMember = obj["left"]["expression"]["name"]
+                                childMember = obj["left"]["memberName"]
+
+                        elif Lefttype == "Identifier":
+                                baseName = obj["left"]["name"]
+
+                        elif Lefttype == "NumberLiteral":
+                                value = obj["left"]["number"]
+
+                        elif Lefttype == "BooleanLiteral":
+                                value = obj["left"]["value"]
+
+                        left = Operator(Lefttype,value,baseName,indexType,parentMember,childMember)
+
+
+                        #----- RIGHT --------#
+                        Righttype = "None"
+                        value = "None"
+                        baseName = "None"
+                        indexType = "None"
+                        parentMember = "None"
+                        childMember = "None"
+                        
+                        Righttype = obj["right"]["type"]
+                        if Righttype == "IndexAccess":
+                            baseName = obj["right"]["base"]["name"]
+                            indexType = obj["right"]["index"]["type"]
+
+                            if indexType == "MemberAccess":
+                                parentMember = obj["right"]["index"]["expression"]["name"]
+                                childMember = obj["right"]["index"]["memberName"]
+                            elif indexType == "NumberLiteral":
+                                value = obj["right"]["number"]
+                                
+                        elif Righttype == "MemberAccess":
+                                parentMember = obj["right"]["expression"]["name"]
+                                childMember = obj["right"]["memberName"]
+
+                        elif Righttype == "Identifier":
+                                baseName = obj["right"]["name"]
+
+                        elif Righttype == "NumberLiteral":
+                                value = obj["right"]["number"]
+
+                        elif Righttype == "BooleanLiteral":
+                                value = obj["right"]["value"]
+
+                        right = Operator(Righttype,value,baseName,indexType,parentMember,childMember)
+                        cond = ConditionStatment(type,operator,left,right)
+                        AllConditionStatment.append(cond) #condition statement
+
             functionExpression[funcName] = allExpression
             functionLocalVariable[funcName] = allLocalVariable
 
@@ -404,5 +490,23 @@ def method_Information():
     #             print(exp.right.childMember)
     #         print()
 
+    # for exp in AllConditionStatment:
+        
+    #     print(exp.type)
+    #     print(exp.operator)
+    #     print(exp.left.type)
+    #     print(exp.left.value)
+    #     print(exp.left.baseName)#varName
+    #     print(exp.left.indexType)
+    #     print(exp.left.parentMember)
+    #     print(exp.left.childMember)
+    #     print("-----------------")
+    #     print(exp.right.type)
+    #     print(exp.right.value)
+    #     print(exp.right.baseName)#varName
+    #     print(exp.right.indexType)
+    #     print(exp.right.parentMember)
+    #     print(exp.right.childMember)
+        
 if __name__ == "__main__":
     method_Information()
