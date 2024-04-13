@@ -109,6 +109,10 @@ def stateVariable():
                             funcName = expression["right"]["expression"]["name"]
                         else:
                             right = expression["right"]["name"]
+                    elif expression["type"] == "MemberAccess":
+                        baseName = expression["expression"]["name"]
+                        parentMember = expression["expression"]["name"]
+                        childMember = expression["memberName"]
 
             elif mainObj == "Mapping":
                 dataType = "Mapping"

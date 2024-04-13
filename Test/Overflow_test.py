@@ -2,6 +2,7 @@ import sys
 sys.path.append('/home/nitin/Desktop/Tool/')
 import variable
 
+#-------------------------------------------------Private Data Read-----------------------------------------------------#
 #-----scaning statevariable first-----#
 stateVariables = variable.stateVariable()
 
@@ -18,6 +19,8 @@ for var in stateVariables:
             print() 
             print("Integer Overflow.")
 
+
+#-------------------------------------------------Overflow & Underflow-----------------------------------------------------#
 #-----Looking every methods and analysis------#
 import method
 allMethods,functionExpression,functionLocalVariable = method.method_Information()
@@ -79,31 +82,25 @@ for key in functionExpression:
                     print()
                     print("Integer Underflow.")
                 
-# for key in functionLocalVariable:
-#         print(key)
-#         for exp in functionLocalVariable[key]:
-#             print(exp.dataType)
-#             print(exp.varName)
-#             print(exp.storageLoc)
-#             print(exp.value)
-#             print(exp.intializeType)
-#             print(exp.parentMember)
-#             print(exp.childMember)
-#             print(exp.baseName)
-#             print(exp.indexType)
-#             print(exp.operator)
-#             if exp.left != "None":
-#                 print(exp.left.type)
-#                 print(exp.left.value)
-#                 print(exp.left.baseName)#varName
-#                 print(exp.left.indexType)
-#                 print(exp.left.parentMember)
-#                 print(exp.left.childMember)
-#             if exp.right != "None":
-#                 print(exp.right.type)
-#                 print(exp.right.value)
-#                 print(exp.right.baseName)#varName
-#                 print(exp.right.indexType)
-#                 print(exp.right.parentMember)
-#                 print(exp.right.childMember)
-#             print()
+
+#-------------------------------------------------Block Time Manipulation-----------------------------------------------------#
+#1. check any locak & state variable depend on BlockTime
+#2. check that variable used in any conditional statment
+blockDependedVar = {}
+
+for var in stateVariables:
+    if var.baseName == "block" or var.parentMember == "block":
+        # print(var.varName)
+        blockDependedVar[var.varName] = True
+
+for var in stateVariables:
+     if var.left in blockDependedVar or var.right in blockDependedVar:
+          blockDependedVar[var.varName] = True
+          
+#-----above done! next task : do above for funciton local variable and then find var in ifstatement--------#
+for key in functionLocalVariable:
+        for exp in functionLocalVariable[key]:
+            functionLocalVariableDict[exp.varName] = exp
+
+for key in blockDependedVar:
+     print(key)

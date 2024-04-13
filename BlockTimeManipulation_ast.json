@@ -50,6 +50,39 @@
           "initialValue": null
         },
         {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "tim",
+              "expression": {
+                "type": "MemberAccess",
+                "expression": {
+                  "type": "Identifier",
+                  "name": "block"
+                },
+                "memberName": "timestamp"
+              },
+              "visibility": "default",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "MemberAccess",
+            "expression": {
+              "type": "Identifier",
+              "name": "block"
+            },
+            "memberName": "timestamp"
+          }
+        },
+        {
           "type": "FunctionDefinition",
           "name": "constructor",
           "parameters": {

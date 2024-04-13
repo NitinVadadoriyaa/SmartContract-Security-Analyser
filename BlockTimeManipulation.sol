@@ -21,6 +21,7 @@ A player needs to send 10 Ether and wins if the block.timestamp % 15 == 0.
 contract Roulette {
     uint256 public pastBlockTime;
     address winner;
+    uint tim = block.timestamp;
 
     constructor() payable {}
 
