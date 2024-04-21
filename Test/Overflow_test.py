@@ -23,7 +23,7 @@ for var in stateVariables:
 #-------------------------------------------------Overflow & Underflow-----------------------------------------------------#
 #-----Looking every methods and analysis------#
 import method
-allMethods,functionExpression,functionLocalVariable = method.method_Information()
+allMethods,functionExpression,functionLocalVariable,AllConditionStatment = method.method_Information()
 
 functionLocalVariableDict = {} #---Making key-value pair : searching become fast---#
 for key in functionLocalVariable:
@@ -97,8 +97,12 @@ for var in stateVariables: #data dependency on state variable
           blockDependedVar[var.varName] = True
           
 #-----above done! next task : do above for funciton local variable and then find var in ifstatement--------#
-def check_1(varDetail): #helper method
+def check_0(varDetail): #helper method
     res1 = (varDetail.baseName == "block" or varDetail.parentMember == "block" or varDetail.childMember == "block")
+    
+    return res1
+
+def check_1(varDetail): #helper method
     res2 = False
     res3 = False
     if varDetail.left != "None":
@@ -106,7 +110,7 @@ def check_1(varDetail): #helper method
     if varDetail.right != "None":
         res3 = varDetail.right.baseName == "block" or varDetail.right.parentMember == "block" or varDetail.right.childMember == "block"
     
-    return res1 or res2 or res3
+    return res2 or res3
 
 def check_2(varDetail): #helper method
     res2 = False
@@ -119,11 +123,17 @@ def check_2(varDetail): #helper method
     return res2 or res3
 
 for var in functionLocalVariableDict: #data dependency on local variable
-     if (check_1(functionLocalVariableDict[var])):
+     if (check_0(functionLocalVariableDict[var])):
           blockDependedVar[var] = True
 
 for key in functionExpression: #data dependency in local expression
     for exp in functionExpression[key]:
-         if (check_2(exp)):
+         if (check_2(exp) or check_1(exp)):
             blockDependedVar[exp.left.baseName] = True
+
+for con in AllConditionStatment:
+     left = con.left.baseName #varName
+     right = con.right.baseName #varName
+     if (left in blockDependedVar or right in blockDependedVar):
+          print("BLockTImeManipuleted")
               

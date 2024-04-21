@@ -126,6 +126,31 @@
           }
         },
         {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "tim3",
+              "expression": {
+                "type": "Identifier",
+                "name": "tim2"
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "Identifier",
+            "name": "tim2"
+          }
+        },
+        {
           "type": "FunctionDefinition",
           "name": "constructor",
           "parameters": {
@@ -307,10 +332,10 @@
                 "type": "IfStatement",
                 "condition": {
                   "type": "BinaryOperation",
-                  "operator": "==",
+                  "operator": "!=",
                   "left": {
                     "type": "Identifier",
-                    "name": "bt"
+                    "name": "tim3"
                   },
                   "right": {
                     "type": "NumberLiteral",

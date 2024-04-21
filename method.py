@@ -426,7 +426,7 @@ def method_Information():
             functionExpression[funcName] = allExpression
             functionLocalVariable[funcName] = allLocalVariable
 
-    return allMethods,functionExpression,functionLocalVariable
+    return allMethods,functionExpression,functionLocalVariable,AllConditionStatment
 
 
     # for method in allMethods:
@@ -498,8 +498,7 @@ def method_Information():
     #             print(exp.right.childMember)
     #         print()
 
-    # for exp in AllConditionStatment:
-        
+    # for exp in AllConditionStatment:  
     #     print(exp.type)
     #     print(exp.operator)
     #     print(exp.left.type)

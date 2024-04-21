@@ -113,6 +113,9 @@ def stateVariable():
                         baseName = expression["expression"]["name"]
                         parentMember = expression["expression"]["name"]
                         childMember = expression["memberName"]
+                    elif expression["type"] == "Identifier":
+                        baseName = expression["name"]
+                        right = expression["name"]
 
             elif mainObj == "Mapping":
                 dataType = "Mapping"
@@ -124,16 +127,17 @@ def stateVariable():
             stateVariables.append(Integer(dataType,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName))
     
     # for var in stateVariables:
-        # print("dataType : " + var.dataType)
-        # print("varName : " + var.varName)
-        # print("visibility : " + var.visibility)
-        # print( var.value)
-        # print("operator : " + var.operator)
-        # print("left : " + var.left)
-        # print("right : " + var.right)
-        # print("keyType : " + var.keyTypeName)
-        # print("valueType : " + var.valueTypeName)
-        # print()
+    #     print("dataType : " + var.dataType)
+    #     print("baseNmae " + var.baseName)
+    #     print("varName : " + var.varName)
+    #     print("visibility : " + var.visibility)
+    #     print( var.value)
+    #     print("operator : " + var.operator)
+    #     print("left : " + var.left)
+    #     print("right : " + var.right)
+    #     print("keyType : " + var.keyTypeName)
+    #     print("valueType : " + var.valueTypeName)
+    #     print()
     return stateVariables
             
 

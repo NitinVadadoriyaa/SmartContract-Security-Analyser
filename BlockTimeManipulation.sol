@@ -24,7 +24,7 @@ contract Roulette {
  
     uint tim = block.timestamp;
    uint public tim2 = 10 * tim;
-
+    uint public tim3 = tim2;
     constructor() payable {}
 
     function spin() external payable {
@@ -35,7 +35,7 @@ contract Roulette {
         uint bt1;
         uint bt = block.timestamp % 15;
         bt1 = 100 * bt;
-        if (bt == 0) {
+        if (bt1 != 0) {
             winner = msg.sender;
         }
     }
