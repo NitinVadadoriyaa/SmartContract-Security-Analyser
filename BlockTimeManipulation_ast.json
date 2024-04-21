@@ -83,6 +83,49 @@
           }
         },
         {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "tim2",
+              "expression": {
+                "type": "BinaryOperation",
+                "operator": "*",
+                "left": {
+                  "type": "NumberLiteral",
+                  "number": "10",
+                  "subdenomination": null
+                },
+                "right": {
+                  "type": "Identifier",
+                  "name": "tim"
+                }
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "BinaryOperation",
+            "operator": "*",
+            "left": {
+              "type": "NumberLiteral",
+              "number": "10",
+              "subdenomination": null
+            },
+            "right": {
+              "type": "Identifier",
+              "name": "tim"
+            }
+          }
+        },
+        {
           "type": "FunctionDefinition",
           "name": "constructor",
           "parameters": {
@@ -199,6 +242,21 @@
                       "type": "ElementaryTypeName",
                       "name": "uint"
                     },
+                    "name": "bt1",
+                    "storageLocation": null
+                  }
+                ],
+                "initialValue": null
+              },
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "ElementaryTypeName",
+                      "name": "uint"
+                    },
                     "name": "bt",
                     "storageLocation": null
                   }
@@ -218,6 +276,30 @@
                     "type": "NumberLiteral",
                     "number": "15",
                     "subdenomination": null
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "bt1"
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": "*",
+                    "left": {
+                      "type": "NumberLiteral",
+                      "number": "100",
+                      "subdenomination": null
+                    },
+                    "right": {
+                      "type": "Identifier",
+                      "name": "bt"
+                    }
                   }
                 }
               },

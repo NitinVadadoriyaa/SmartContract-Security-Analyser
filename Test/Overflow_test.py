@@ -88,19 +88,42 @@ for key in functionExpression:
 #2. check that variable used in any conditional statment
 blockDependedVar = {}
 
-for var in stateVariables:
+for var in stateVariables: #data dependency on state variable
     if var.baseName == "block" or var.parentMember == "block":
-        # print(var.varName)
         blockDependedVar[var.varName] = True
 
-for var in stateVariables:
+for var in stateVariables: #data dependency on state variable
      if var.left in blockDependedVar or var.right in blockDependedVar:
           blockDependedVar[var.varName] = True
           
 #-----above done! next task : do above for funciton local variable and then find var in ifstatement--------#
-for key in functionLocalVariable:
-        for exp in functionLocalVariable[key]:
-            functionLocalVariableDict[exp.varName] = exp
+def check_1(varDetail): #helper method
+    res1 = (varDetail.baseName == "block" or varDetail.parentMember == "block" or varDetail.childMember == "block")
+    res2 = False
+    res3 = False
+    if varDetail.left != "None":
+        res2 = varDetail.left.baseName == "block" or varDetail.left.parentMember == "block" or varDetail.left.childMember == "block"
+    if varDetail.right != "None":
+        res3 = varDetail.right.baseName == "block" or varDetail.right.parentMember == "block" or varDetail.right.childMember == "block"
+    
+    return res1 or res2 or res3
 
-for key in blockDependedVar:
-     print(key)
+def check_2(varDetail): #helper method
+    res2 = False
+    res3 = False
+    if varDetail.left != "None":
+        res2 = (varDetail.left.baseName in functionLocalVariableDict) or (varDetail.left.parentMember in functionLocalVariableDict) or (varDetail.left.childMember in functionLocalVariableDict)
+    if varDetail.right != "None":
+        res3 = (varDetail.right.baseName in functionLocalVariableDict) or (varDetail.right.parentMember in functionLocalVariableDict) or (varDetail.right.childMember in functionLocalVariableDict)
+        
+    return res2 or res3
+
+for var in functionLocalVariableDict: #data dependency on local variable
+     if (check_1(functionLocalVariableDict[var])):
+          blockDependedVar[var] = True
+
+for key in functionExpression: #data dependency in local expression
+    for exp in functionExpression[key]:
+         if (check_2(exp)):
+            blockDependedVar[exp.left.baseName] = True
+              

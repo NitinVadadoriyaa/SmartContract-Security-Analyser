@@ -453,12 +453,20 @@ def method_Information():
     #     for exp in functionExpression[key]:
     #         print(exp.type)
     #         print(exp.operator)
+    #         print('---left---')
     #         print(exp.left.type)
     #         print(exp.left.value)
     #         print(exp.left.baseName)#varName
     #         print(exp.left.indexType)
     #         print(exp.left.parentMember)
     #         print(exp.left.childMember)
+    #         print('---right---')
+    #         print(exp.right.type)
+    #         print(exp.right.value)
+    #         print(exp.right.baseName)#varName
+    #         print(exp.right.indexType)
+    #         print(exp.right.parentMember)
+    #         print(exp.right.childMember)
     #         print()
         
     # for key in functionLocalVariable:
