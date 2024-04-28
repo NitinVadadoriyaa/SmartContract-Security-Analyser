@@ -13,16 +13,6 @@ def generate_ast(fileName):
 
 
     print("successfuly : AST generated and stored in", f"{fileName_without_extension}_ast.json")
-    
-    ''' Different Function '''
-''' 
-sourceUnitObject = parser.objectify(sourceUnit)
-sourceUnitObject.imports  # []
-sourceUnitObject.pragmas  # []
-sourceUnitObject.contracts.keys()  # get all contract names
-sourceUnitObject.contracts["contractName"].functions.keys()  # get all functions in contract: "contractName"
-sourceUnitObject.contracts["contractName"].functions["myFunction"].visibility  # get "myFunction"s visibility (or stateMutability)
-'''
 
 if __name__ == "__main__":
     import sys

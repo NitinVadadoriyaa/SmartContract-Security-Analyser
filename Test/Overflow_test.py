@@ -16,7 +16,7 @@ for var in stateVariables:
         print("Private Data Read.")
     elif var.operator == "+" and var.dataType[0] == 'u':
         if var.funcName != "None":
-            print() 
+            print()
             print("Integer Overflow.")
 
 
