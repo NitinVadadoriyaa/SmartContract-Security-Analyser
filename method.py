@@ -430,15 +430,9 @@ def method_Information():
 
 
     # for method in allMethods:
-        # print(method.funcName)
-        # if len(method.parameterList) != 0:
-        #     for par in method.parameterList:
-        #         print(par.type)
-        #         print(par.dataType)
-        #         print(par.varName)
-        #         print(par.storageLocation)
-        #         print(par.isStateVar)
-        #         print()
+    #     print(method.funcName)
+    #     print(method.visibility)
+    #     print(method.stateMutability)
         # if len(method.returnParameterList) != 0:
         #     par = method.returnParameterList[0]
         #     print(par.type)
@@ -469,34 +463,35 @@ def method_Information():
     #         print(exp.right.childMember)
     #         print()
         
-    # for key in functionLocalVariable:
-    #     print(key)
-    #     for exp in functionLocalVariable[key]:
-    #         print(exp.dataType)
-    #         print(exp.varName)
-    #         print(exp.storageLoc)
-    #         print(exp.value)
-    #         print(exp.intializeType)
-    #         print(exp.parentMember)
-    #         print(exp.childMember)
-    #         print(exp.baseName)
-    #         print(exp.indexType)
-    #         print(exp.operator)
-    #         if exp.left != "None":
-    #             print(exp.left.type)
-    #             print(exp.left.value)
-    #             print(exp.left.baseName)#varName
-    #             print(exp.left.indexType)
-    #             print(exp.left.parentMember)
-    #             print(exp.left.childMember)
-    #         if exp.right != "None":
-    #             print(exp.right.type)
-    #             print(exp.right.value)
-    #             print(exp.right.baseName)#varName
-    #             print(exp.right.indexType)
-    #             print(exp.right.parentMember)
-    #             print(exp.right.childMember)
-    #         print()
+    for key in functionLocalVariable:
+        print(key)
+        print(len(functionLocalVariable[key]))
+        for exp in functionLocalVariable[key]:
+            print(exp.dataType)
+            print(exp.varName)
+            print(exp.storageLoc)
+            print(exp.value)
+            print(exp.intializeType)
+            print(exp.parentMember)
+            print(exp.childMember)
+            print(exp.baseName)
+            print(exp.indexType)
+            print(exp.operator)
+            if exp.left != "None":
+                print(exp.left.type)
+                print(exp.left.value)
+                print(exp.left.baseName)#varName
+                print(exp.left.indexType)
+                print(exp.left.parentMember)
+                print(exp.left.childMember)
+            if exp.right != "None":
+                print(exp.right.type)
+                print(exp.right.value)
+                print(exp.right.baseName)#varName
+                print(exp.right.indexType)
+                print(exp.right.parentMember)
+                print(exp.right.childMember)
+            print()
 
     # for exp in AllConditionStatment:  
     #     print(exp.type)

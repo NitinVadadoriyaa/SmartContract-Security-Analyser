@@ -27,8 +27,9 @@ allMethods,functionExpression,functionLocalVariable,AllConditionStatment = metho
 
 functionLocalVariableDict = {} #---Making key-value pair : searching become fast---#
 for key in functionLocalVariable:
-        for exp in functionLocalVariable[key]:
-            functionLocalVariableDict[exp.varName] = exp
+        if len(functionLocalVariable[key]) != 0: #functionName --> array of local var
+            for exp in functionLocalVariable[key]:
+                functionLocalVariableDict[exp.varName] = exp
 
 for method in allMethods: #---parameter local variable---#
         if len(method.parameterList) != 0:
@@ -95,8 +96,7 @@ for var in stateVariables: #data dependency on state variable
 for var in stateVariables: #data dependency on state variable
      if var.left in blockDependedVar or var.right in blockDependedVar:
           blockDependedVar[var.varName] = True
-          
-#-----above done! next task : do above for funciton local variable and then find var in ifstatement--------#
+
 def check_0(varDetail): #helper method
     res1 = (varDetail.baseName == "block" or varDetail.parentMember == "block" or varDetail.childMember == "block")
     
@@ -123,8 +123,9 @@ def check_2(varDetail): #helper method
     return res2 or res3
 
 for var in functionLocalVariableDict: #data dependency on local variable
-     if (check_0(functionLocalVariableDict[var])):
-          blockDependedVar[var] = True
+    if "baseName" in var:
+        if (check_0(functionLocalVariableDict[var])):
+            blockDependedVar[var] = True
 
 for key in functionExpression: #data dependency in local expression
     for exp in functionExpression[key]:
@@ -137,3 +138,11 @@ for con in AllConditionStatment:
      if (left in blockDependedVar or right in blockDependedVar):
           print("BLockTImeManipuleted")
               
+
+#------------------------------------Deninal of service----------------------------------------------#
+#function must be external
+#function send token to caller
+for method in allMethods:
+    if method.visibility == "external":
+        #TODO : YOU HAVE TO JUST IDENTIFY SENDER METHOD INVOLE IN CURRENT METHOD OR NOT
+        print()
