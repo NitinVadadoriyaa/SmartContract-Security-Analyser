@@ -227,6 +227,30 @@ def method_Information():
                             expRight = Operator(type,value,baseName,indexType,parentMember,childMember)
 
                             allExpression.append(Expression(expType,expOperator,expLeft,expRight))
+                        
+                        elif expType == "FunctionCall": #writen only for send Token[DOS attack]
+                            expOperator = "None"
+                            tempDict = {
+                            "isSender" : False,
+                            "isTransfer" : False
+                            }
+                            inDepthCall(obj,tempDict) #adding in LEFT-Operator
+                            type = "None" # isTransfer
+                            childMember = "None" # isSender
+                            value = "None"
+                            baseName = "None"
+                            indexType = "None"
+                            parentMember = "None"
+                            
+                            if tempDict["isTransfer"] == True:
+                                type = "Transfer"
+                            if tempDict["isSender"] == True: #TODO : data-dependency possible - caller address can be store in other name.
+                                childMember = "sender"
+                            
+                            expLeft = Operator(type,value,baseName,indexType,parentMember,childMember)
+                            expRight = Operator(type,value,baseName,indexType,parentMember,childMember)
+
+                            allExpression.append(Expression(expType,expOperator,expLeft,expRight))
 
                     elif obj["type"] == "VariableDeclarationStatement":#--------Only Local Variable--------#
                         dataType = "None"
@@ -426,7 +450,7 @@ def method_Information():
             functionExpression[funcName] = allExpression
             functionLocalVariable[funcName] = allLocalVariable
 
-    return allMethods,functionExpression,functionLocalVariable,AllConditionStatment
+    # return allMethods,functionExpression,functionLocalVariable,AllConditionStatment
 
 
     # for method in allMethods:
@@ -442,56 +466,56 @@ def method_Information():
         #     print(par.isStateVar)
         #     print()
             
-    # for key in functionExpression:
-    #     print("Method Name : " + key)
-    #     for exp in functionExpression[key]:
-    #         print(exp.type)
-    #         print(exp.operator)
-    #         print('---left---')
-    #         print(exp.left.type)
-    #         print(exp.left.value)
-    #         print(exp.left.baseName)#varName
-    #         print(exp.left.indexType)
-    #         print(exp.left.parentMember)
-    #         print(exp.left.childMember)
-    #         print('---right---')
-    #         print(exp.right.type)
-    #         print(exp.right.value)
-    #         print(exp.right.baseName)#varName
-    #         print(exp.right.indexType)
-    #         print(exp.right.parentMember)
-    #         print(exp.right.childMember)
-    #         print()
-        
-    for key in functionLocalVariable:
-        print(key)
-        print(len(functionLocalVariable[key]))
-        for exp in functionLocalVariable[key]:
-            print(exp.dataType)
-            print(exp.varName)
-            print(exp.storageLoc)
-            print(exp.value)
-            print(exp.intializeType)
-            print(exp.parentMember)
-            print(exp.childMember)
-            print(exp.baseName)
-            print(exp.indexType)
+    for key in functionExpression:
+        print("Method Name : " + key)
+        for exp in functionExpression[key]:
+            print(exp.type)
             print(exp.operator)
-            if exp.left != "None":
-                print(exp.left.type)
-                print(exp.left.value)
-                print(exp.left.baseName)#varName
-                print(exp.left.indexType)
-                print(exp.left.parentMember)
-                print(exp.left.childMember)
-            if exp.right != "None":
-                print(exp.right.type)
-                print(exp.right.value)
-                print(exp.right.baseName)#varName
-                print(exp.right.indexType)
-                print(exp.right.parentMember)
-                print(exp.right.childMember)
+            print('---left---')
+            print(exp.left.type)
+            print(exp.left.value)
+            print(exp.left.baseName)#varName
+            print(exp.left.indexType)
+            print(exp.left.parentMember)
+            print(exp.left.childMember)
+            print('---right---')
+            print(exp.right.type)
+            print(exp.right.value)
+            print(exp.right.baseName)#varName
+            print(exp.right.indexType)
+            print(exp.right.parentMember)
+            print(exp.right.childMember)
             print()
+        
+    # for key in functionLocalVariable:
+    #     print(key)
+    #     print(len(functionLocalVariable[key]))
+    #     for exp in functionLocalVariable[key]:
+    #         print(exp.dataType)
+    #         print(exp.varName)
+    #         print(exp.storageLoc)
+    #         print(exp.value)
+    #         print(exp.intializeType)
+    #         print(exp.parentMember)
+    #         print(exp.childMember)
+    #         print(exp.baseName)
+    #         print(exp.indexType)
+    #         print(exp.operator)
+    #         if exp.left != "None":
+    #             print(exp.left.type)
+    #             print(exp.left.value)
+    #             print(exp.left.baseName)#varName
+    #             print(exp.left.indexType)
+    #             print(exp.left.parentMember)
+    #             print(exp.left.childMember)
+    #         if exp.right != "None":
+    #             print(exp.right.type)
+    #             print(exp.right.value)
+    #             print(exp.right.baseName)#varName
+    #             print(exp.right.indexType)
+    #             print(exp.right.parentMember)
+    #             print(exp.right.childMember)
+    #         print()
 
     # for exp in AllConditionStatment:  
     #     print(exp.type)
@@ -509,6 +533,31 @@ def method_Information():
     #     print(exp.right.indexType)
     #     print(exp.right.parentMember)
     #     print(exp.right.childMember)
-        
+
+def inDepthCall(obj,tempDict):
+    if "arguments" in obj:
+        for tempObj in obj["arguments"]:
+            if "memberName" in tempObj:
+                if tempObj["memberName"] == "transfer":
+                    tempDict["isTransfer"] = True
+
+                elif tempObj["memberName"] == "sender":
+                    tempDict["isSender"] = True
+
+            if "expression" in tempObj:
+                inDepthCall(tempObj["expression"],tempDict)
+        #for-loop-end
+
+    if "memberName" in obj:
+        if obj["memberName"] == "transfer":
+            tempDict["isTransfer"] = True
+            
+        elif obj["memberName"] == "sender":
+            tempDict["isSender"] = True
+           
+    if "expression" in obj:
+        inDepthCall(obj["expression"],tempDict)
+
+      
 if __name__ == "__main__":
     method_Information()
