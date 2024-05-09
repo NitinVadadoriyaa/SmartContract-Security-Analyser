@@ -9,6 +9,9 @@ def start_analysis(fileName):
     with open("env.py", 'w') as f:
         f.write(f'fileName = "{fileName}"\n')
 
+    import Analysis
+    Analysis.doAnalysis()
+
 if __name__ == "__main__":
     import sys
     if len(sys.argv) != 2:
