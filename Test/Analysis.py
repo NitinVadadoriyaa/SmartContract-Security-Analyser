@@ -145,4 +145,8 @@ for con in AllConditionStatment:
 for method in allMethods:
     if method.visibility == "external":
         #TODO : YOU HAVE TO JUST IDENTIFY SENDER METHOD INVOLE IN CURRENT METHOD OR NOT
-        print()
+        for exp in functionExpression[method.funcName]:
+            if exp.left.type == "Transfer" and exp.left.childMember == "sender":
+                print("Dos")
+                
+        
