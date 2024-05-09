@@ -231,8 +231,8 @@ def method_Information():
                         elif expType == "FunctionCall": #writen only for send Token[DOS attack]
                             expOperator = "None"
                             tempDict = {
-                            "isSender" : False,
-                            "isTransfer" : False
+                            "isSender" : "None",
+                            "isTransfer" : "None"
                             }
                             inDepthCall(obj,tempDict) #adding in LEFT-Operator
                             type = "None" # isTransfer
@@ -242,10 +242,10 @@ def method_Information():
                             indexType = "None"
                             parentMember = "None"
                             
-                            if tempDict["isTransfer"] == True:
-                                type = "Transfer"
-                            if tempDict["isSender"] == True: #TODO : data-dependency possible - caller address can be store in other name.
-                                childMember = "sender"
+                            if tempDict["isTransfer"] != "None":
+                                type = tempDict["isTransfer"]
+                            if tempDict["isSender"] != "None": #TODO : data-dependency possible - caller address can be store in other name.
+                                childMember = tempDict["isSender"]
                             
                             expLeft = Operator(type,value,baseName,indexType,parentMember,childMember)
                             expRight = Operator(type,value,baseName,indexType,parentMember,childMember)
@@ -450,7 +450,7 @@ def method_Information():
             functionExpression[funcName] = allExpression
             functionLocalVariable[funcName] = allLocalVariable
 
-    # return allMethods,functionExpression,functionLocalVariable,AllConditionStatment
+    return allMethods,functionExpression,functionLocalVariable,AllConditionStatment
 
 
     # for method in allMethods:
@@ -466,26 +466,26 @@ def method_Information():
         #     print(par.isStateVar)
         #     print()
             
-    for key in functionExpression:
-        print("Method Name : " + key)
-        for exp in functionExpression[key]:
-            print(exp.type)
-            print(exp.operator)
-            print('---left---')
-            print(exp.left.type)
-            print(exp.left.value)
-            print(exp.left.baseName)#varName
-            print(exp.left.indexType)
-            print(exp.left.parentMember)
-            print(exp.left.childMember)
-            print('---right---')
-            print(exp.right.type)
-            print(exp.right.value)
-            print(exp.right.baseName)#varName
-            print(exp.right.indexType)
-            print(exp.right.parentMember)
-            print(exp.right.childMember)
-            print()
+    # for key in functionExpression:
+    #     print("Method Name : " + key)
+    #     for exp in functionExpression[key]:
+    #         print(exp.type)
+    #         print(exp.operator)
+    #         print('---left---')
+    #         print(exp.left.type)
+    #         print(exp.left.value)
+    #         print(exp.left.baseName)#varName
+    #         print(exp.left.indexType)
+    #         print(exp.left.parentMember)
+    #         print(exp.left.childMember)
+    #         print('---right---')
+    #         print(exp.right.type)
+    #         print(exp.right.value)
+    #         print(exp.right.baseName)#varName
+    #         print(exp.right.indexType)
+    #         print(exp.right.parentMember)
+    #         print(exp.right.childMember)
+    #         print()
         
     # for key in functionLocalVariable:
     #     print(key)
@@ -539,10 +539,13 @@ def inDepthCall(obj,tempDict):
         for tempObj in obj["arguments"]:
             if "memberName" in tempObj:
                 if tempObj["memberName"] == "transfer":
-                    tempDict["isTransfer"] = True
+                    tempDict["isTransfer"] = "transfer"
 
                 elif tempObj["memberName"] == "sender":
-                    tempDict["isSender"] = True
+                    tempDict["isSender"] = "sender"
+
+            elif "name" in tempObj: #For Data-Dependency
+                tempDict["isSender"] = tempObj["name"]
 
             if "expression" in tempObj:
                 inDepthCall(tempObj["expression"],tempDict)
@@ -550,10 +553,10 @@ def inDepthCall(obj,tempDict):
 
     if "memberName" in obj:
         if obj["memberName"] == "transfer":
-            tempDict["isTransfer"] = True
+            tempDict["isTransfer"] = "transfer"
             
         elif obj["memberName"] == "sender":
-            tempDict["isSender"] = True
+            tempDict["isSender"] = "sender"
            
     if "expression" in obj:
         inDepthCall(obj["expression"],tempDict)

@@ -2,6 +2,9 @@ import sys
 sys.path.append('/home/nitin/Desktop/Tool/')
 import variable
 
+#TODO Vulnrable part
+VulnrablePartDict = {} # vulnarability name ==> [keywords]
+
 #-------------------------------------------------Private Data Read-----------------------------------------------------#
 #-----scaning statevariable first-----#
 stateVariables = variable.stateVariable()
@@ -12,12 +15,16 @@ for var in stateVariables:
 
 for var in stateVariables:
     if var.visibility == "private":
-        print()
-        print("Private Data Read.")
+        print("     ||---------------------------------------------------------------------------------------------||")
+        print("     || Private Data Read.     || " + var.varName)
+        print("     ||---------------------------------------------------------------------------------------------||")
+
     elif var.operator == "+" and var.dataType[0] == 'u':
         if var.funcName != "None":
-            print()
-            print("Integer Overflow.")
+            print("     ||---------------------------------------------------------------------------------------------||")
+            print("     || Integer Overflow.     || " + var.varName + " || " + " || + || ")
+            print("     ||---------------------------------------------------------------------------------------------||")
+
 
 
 #-------------------------------------------------Overflow & Underflow-----------------------------------------------------#
@@ -36,52 +43,23 @@ for method in allMethods: #---parameter local variable---#
             for par in method.parameterList:
                 functionLocalVariableDict[par.varName] = par
 
-# for method in allMethods:
-#         print(method.funcName)
-#         if len(method.parameterList) != 0:
-#             for par in method.parameterList:
-#                 print(par.type)
-#                 print(par.dataType)
-#                 print(par.varName)
-#                 print(par.storageLocation)
-#                 print(par.isStateVar)
-#                 print()
-#         if len(method.returnParameterList) != 0:
-#             par = method.returnParameterList[0]
-#             print(par.type)
-#             print(par.dataType)
-#             print(par.varName)
-#             print(par.storageLocation)
-#             print(par.isStateVar)
-#             print()
-
 for key in functionExpression:
-        # print("Method Name : " + key) 
         for exp in functionExpression[key]:
-            # print(exp.type)
-            # print(exp.operator)
-            # print(exp.left.type)
-            # print(exp.left.value)
-            # print(exp.left.baseName)#varName
-            # print(exp.left.indexType)
-            # print(exp.left.parentMember)
-            # print(exp.left.childMember)
-            # print(exp.right.type)
-            # print(exp.right.value)
-            # print(exp.right.baseName)#varName
-            # print(exp.right.indexType)
-            # print(exp.right.parentMember)
-            # print(exp.right.childMember)
-            # print()
+    
             if exp.type == "BinaryOperation" and (exp.operator == "+=" or exp.operator == "*="):
                 if ((exp.left.baseName in variableDict) or (exp.left.baseName in functionLocalVariableDict)) and ((exp.right.baseName in variableDict) or (exp.right.baseName in functionLocalVariableDict)):#TODO CONSIDER A = A + 100 [constant]
                                                                                                                                                                                                             #TODO CONSIDER UNIORYOPERATOR ++ / --
-                    print()
-                    print("Integer Overflow.")
+                   print("     ||---------------------------------------------------------------------------------------------||")
+                   print("     || Integer Overflow.     || " + exp.left.baseName + " || " + exp.operator  + " || ")
+                   print("     ||---------------------------------------------------------------------------------------------||")
+
             if exp.type == "BinaryOperation" and (exp.operator == "-="):
                 if ((exp.left.baseName in variableDict) or (exp.left.baseName in functionLocalVariableDict)) and ((exp.right.baseName in variableDict) or (exp.right.baseName in functionLocalVariableDict)):#TODO CONSIDER A = A - 100 [constant]
-                    print()
-                    print("Integer Underflow.")
+
+                    print("     ||---------------------------------------------------------------------------------------------||")
+                    print("     || Integer Underflow.     || " + exp.left.baseName +  " || " + exp.operator  + " || ")
+                    print("     ||---------------------------------------------------------------------------------------------||")
+
                 
 
 #-------------------------------------------------Block Time Manipulation-----------------------------------------------------#
@@ -135,8 +113,15 @@ for key in functionExpression: #data dependency in local expression
 for con in AllConditionStatment:
      left = con.left.baseName #varName
      right = con.right.baseName #varName
-     if (left in blockDependedVar or right in blockDependedVar):
-          print("BLockTImeManipuleted")
+     if left in blockDependedVar:
+          print("     ||---------------------------------------------------------------------------------------------||")
+          print("     || BlockTimeManipuleted.     || " + left + " || ")
+          print("     ||---------------------------------------------------------------------------------------------||")
+     elif right in blockDependedVar:
+          print("     ||---------------------------------------------------------------------------------------------||")
+          print("     || BlockTimeManipuleted.     || " + right + " || ")
+          print("     ||---------------------------------------------------------------------------------------------||")
+
               
 
 #------------------------------------Deninal of service----------------------------------------------#
@@ -146,7 +131,18 @@ for method in allMethods:
     if method.visibility == "external":
         #TODO : YOU HAVE TO JUST IDENTIFY SENDER METHOD INVOLE IN CURRENT METHOD OR NOT
         for exp in functionExpression[method.funcName]:
-            if exp.left.type == "Transfer" and exp.left.childMember == "sender":
-                print("Dos")
-                
+            
+            if exp.left.type == "transfer" and exp.left.childMember == "sender":
+                print("     ||---------------------------------------------------------------------------------------------||")
+                print("     || Denial Of Service.     || " + method.funcName + "() || ")
+                print("     ||---------------------------------------------------------------------------------------------||")
+
+        #For Data-Dependency
+            elif exp.left.type == "transfer" and exp.left.childMember != "None":
+                for exp in functionLocalVariable[method.funcName]:
+                    if exp.parentMember == "msg" and exp.childMember == "sender": #TODO: check-recursivly && also check for state-variable
+                        print("     ||---------------------------------------------------------------------------------------------||")
+                        print("     || Denial Of Service.     || " + method.funcName + "() || ")
+                        print("     ||---------------------------------------------------------------------------------------------||")
+               
         
