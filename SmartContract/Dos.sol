@@ -12,7 +12,6 @@ contract Bank {
     }
 
     function deposit() external payable {
-        
         accounts[msg.sender] += msg.value;
     }
 }

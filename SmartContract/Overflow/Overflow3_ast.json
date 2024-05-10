@@ -1,0 +1,107 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.4.15"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "Overflow",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "sellerBalance",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "0",
+                "subdenomination": null
+              },
+              "visibility": "private",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "0",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "add",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "value",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "bool"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "+=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "sellerBalance"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "value"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "default",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}

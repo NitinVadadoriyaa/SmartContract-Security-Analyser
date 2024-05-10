@@ -1,0 +1,342 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.6.0"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "Token",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "Mapping",
+                "keyType": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "valueType": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                }
+              },
+              "name": "balances",
+              "expression": null,
+              "visibility": "default",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "totalSupply",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "constructor",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "_initialSupply",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "BinaryOperation",
+                    "operator": "=",
+                    "left": {
+                      "type": "IndexAccess",
+                      "base": {
+                        "type": "Identifier",
+                        "name": "balances"
+                      },
+                      "index": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "msg"
+                        },
+                        "memberName": "sender"
+                      }
+                    },
+                    "right": {
+                      "type": "Identifier",
+                      "name": "totalSupply"
+                    }
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "_initialSupply"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": true,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "transfer",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "name": "_to",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "_value",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "bool"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": ">=",
+                      "left": {
+                        "type": "BinaryOperation",
+                        "operator": "-",
+                        "left": {
+                          "type": "IndexAccess",
+                          "base": {
+                            "type": "Identifier",
+                            "name": "balances"
+                          },
+                          "index": {
+                            "type": "MemberAccess",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "msg"
+                            },
+                            "memberName": "sender"
+                          }
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "_value"
+                        }
+                      },
+                      "right": {
+                        "type": "NumberLiteral",
+                        "number": "0",
+                        "subdenomination": null
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "-=",
+                  "left": {
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "Identifier",
+                      "name": "balances"
+                    },
+                    "index": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "_value"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "+=",
+                  "left": {
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "Identifier",
+                      "name": "balances"
+                    },
+                    "index": {
+                      "type": "Identifier",
+                      "name": "_to"
+                    }
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "_value"
+                  }
+                }
+              },
+              {
+                "type": "BooleanLiteral",
+                "value": true
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "balanceOf",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "name": "_owner",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "balance",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "IndexAccess",
+                "base": {
+                  "type": "Identifier",
+                  "name": "balances"
+                },
+                "index": {
+                  "type": "Identifier",
+                  "name": "_owner"
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "view"
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}

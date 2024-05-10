@@ -50,6 +50,7 @@ def stateVariable():
         varName = "None"
         baseName = "None"
         indexType = "None"
+        visibility = "None"
         intializeType = "None"
         parentMember = "None"
         childMember = "None"
@@ -124,7 +125,7 @@ def stateVariable():
                 visibility = "public" if key["variables"][0]["visibility"] == "default" else key["variables"][0]["visibility"]
                 keyTypeName = key["variables"][0]["typeName"]["keyType"]["name"] #datatype name
                 valueTypeName = key["variables"][0]["typeName"]["valueType"]["name"] #datatype name"
-
+        
             stateVariables.append(Integer(dataType,False,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName))
     
     # for var in stateVariables:

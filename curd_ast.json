@@ -1,0 +1,607 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.8.1"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "CollegeData",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StructDefinition",
+          "name": "Student",
+          "members": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "rollNo",
+              "storageLocation": null
+            },
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "string"
+              },
+              "name": "studentName",
+              "storageLocation": null
+            },
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "string"
+              },
+              "name": "class",
+              "storageLocation": null
+            }
+          ]
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ArrayTypeName",
+                "baseTypeName": {
+                  "type": "UserDefinedTypeName",
+                  "namePath": "Student"
+                },
+                "length": null
+              },
+              "name": "students",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "netxtStudentRollNo",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "create",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": "name",
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": "class",
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "students"
+                    },
+                    "memberName": "push"
+                  },
+                  "arguments": [
+                    {
+                      "type": "FunctionCall",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "Student"
+                      },
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "netxtStudentRollNo"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "name"
+                        },
+                        {
+                          "type": "Identifier",
+                          "name": "class"
+                        }
+                      ],
+                      "names": []
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "UnaryOperation",
+                  "operator": "++",
+                  "subExpression": {
+                    "type": "Identifier",
+                    "name": "netxtStudentRollNo"
+                  },
+                  "isPrefix": false
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "read",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "studentRollNo",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": null,
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": null,
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "IfStatement",
+                "condition": {
+                  "type": "BinaryOperation",
+                  "operator": "&&",
+                  "left": {
+                    "type": "BinaryOperation",
+                    "operator": "<",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "studentRollNo"
+                    },
+                    "right": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "students"
+                      },
+                      "memberName": "length"
+                    }
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": ">=",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "studentRollNo"
+                    },
+                    "right": {
+                      "type": "NumberLiteral",
+                      "number": "0",
+                      "subdenomination": null
+                    }
+                  }
+                },
+                "TrueBody": {
+                  "type": "Block",
+                  "statements": [
+                    {
+                      "type": "TupleExpression",
+                      "components": [
+                        {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "IndexAccess",
+                            "base": {
+                              "type": "Identifier",
+                              "name": "students"
+                            },
+                            "index": {
+                              "type": "Identifier",
+                              "name": "studentRollNo"
+                            }
+                          },
+                          "memberName": "rollNo"
+                        },
+                        {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "IndexAccess",
+                            "base": {
+                              "type": "Identifier",
+                              "name": "students"
+                            },
+                            "index": {
+                              "type": "Identifier",
+                              "name": "studentRollNo"
+                            }
+                          },
+                          "memberName": "studentName"
+                        },
+                        {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "IndexAccess",
+                            "base": {
+                              "type": "Identifier",
+                              "name": "students"
+                            },
+                            "index": {
+                              "type": "Identifier",
+                              "name": "studentRollNo"
+                            }
+                          },
+                          "memberName": "class"
+                        }
+                      ],
+                      "isArray": false
+                    }
+                  ]
+                },
+                "FalseBody": null
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "revert"
+                  },
+                  "arguments": [
+                    {
+                      "type": "stringLiteral",
+                      "value": "Student doesn't exist"
+                    }
+                  ],
+                  "names": []
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "view"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "update",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "studentRollNo",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": "studentName",
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": "studentClass",
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "IfStatement",
+                "condition": {
+                  "type": "BinaryOperation",
+                  "operator": "&&",
+                  "left": {
+                    "type": "BinaryOperation",
+                    "operator": "<",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "studentRollNo"
+                    },
+                    "right": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "students"
+                      },
+                      "memberName": "length"
+                    }
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": ">=",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "studentRollNo"
+                    },
+                    "right": {
+                      "type": "NumberLiteral",
+                      "number": "0",
+                      "subdenomination": null
+                    }
+                  }
+                },
+                "TrueBody": {
+                  "type": "Block",
+                  "statements": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "BinaryOperation",
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "IndexAccess",
+                            "base": {
+                              "type": "Identifier",
+                              "name": "students"
+                            },
+                            "index": {
+                              "type": "Identifier",
+                              "name": "studentRollNo"
+                            }
+                          },
+                          "memberName": "studentName"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "studentName"
+                        }
+                      }
+                    },
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "BinaryOperation",
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "IndexAccess",
+                            "base": {
+                              "type": "Identifier",
+                              "name": "students"
+                            },
+                            "index": {
+                              "type": "Identifier",
+                              "name": "studentRollNo"
+                            }
+                          },
+                          "memberName": "class"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "studentClass"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "FalseBody": null
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "destroy",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "studentRollNo",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "IfStatement",
+                "condition": {
+                  "type": "BinaryOperation",
+                  "operator": "&&",
+                  "left": {
+                    "type": "BinaryOperation",
+                    "operator": "<",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "studentRollNo"
+                    },
+                    "right": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "students"
+                      },
+                      "memberName": "length"
+                    }
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": ">=",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "studentRollNo"
+                    },
+                    "right": {
+                      "type": "NumberLiteral",
+                      "number": "0",
+                      "subdenomination": null
+                    }
+                  }
+                },
+                "TrueBody": {
+                  "type": "Block",
+                  "statements": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "UnaryOperation",
+                        "operator": "delete",
+                        "subExpression": {
+                          "type": "IndexAccess",
+                          "base": {
+                            "type": "Identifier",
+                            "name": "students"
+                          },
+                          "index": {
+                            "type": "Identifier",
+                            "name": "studentRollNo"
+                          }
+                        },
+                        "isPrefix": true
+                      }
+                    }
+                  ]
+                },
+                "FalseBody": null
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}
