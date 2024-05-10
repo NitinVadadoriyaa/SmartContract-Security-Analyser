@@ -22,9 +22,6 @@ contract Roulette {
     uint256 public pastBlockTime;
     address winner;
  
-    uint tim = block.timestamp;
-   uint public tim2 = 10 * tim;
-    uint public tim3 = tim2;
     constructor() payable {}
 
     function spin() external payable {
@@ -32,10 +29,9 @@ contract Roulette {
         require(block.timestamp != pastBlockTime); // only 1 transaction per block
 
         pastBlockTime = block.timestamp;
-        uint bt1;
+       
         uint bt = block.timestamp % 15;
-        bt1 = 100 * bt;
-        if (bt1 != 0) {
+        if (bt != 0) {
             winner = msg.sender;
         }
     }

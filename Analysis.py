@@ -64,7 +64,7 @@ def doAnalysis():
                     
 
     #-------------------------------------------------Block Time Manipulation-----------------------------------------------------#
-    #1. check any locak & state variable depend on BlockTime
+    #1. check any local & state variable depend on BlockTime
     #2. check that variable used in any conditional statment
     blockDependedVar = {}
 
@@ -78,6 +78,7 @@ def doAnalysis():
 
     def check_0(varDetail): #helper method
         res1 = (varDetail.baseName == "block" or varDetail.parentMember == "block" or varDetail.childMember == "block")
+        res1 = res1 or (varDetail.baseName in blockDependedVar or varDetail.parentMember in blockDependedVar or varDetail.childMember in blockDependedVar)
         
         return res1
 
@@ -95,21 +96,24 @@ def doAnalysis():
         res2 = False
         res3 = False
         if varDetail.left != "None":
-            res2 = (varDetail.left.baseName in functionLocalVariableDict) or (varDetail.left.parentMember in functionLocalVariableDict) or (varDetail.left.childMember in functionLocalVariableDict)
+            res2 = (varDetail.left.baseName in blockDependedVar) or (varDetail.left.parentMember in blockDependedVar) or (varDetail.left.childMember in blockDependedVar)
         if varDetail.right != "None":
-            res3 = (varDetail.right.baseName in functionLocalVariableDict) or (varDetail.right.parentMember in functionLocalVariableDict) or (varDetail.right.childMember in functionLocalVariableDict)
+            res3 = (varDetail.right.baseName in blockDependedVar) or (varDetail.right.parentMember in blockDependedVar) or (varDetail.right.childMember in blockDependedVar)
             
         return res2 or res3
-
-    for var in functionLocalVariableDict: #data dependency on local variable
-        if "baseName" in var:
-            if (check_0(functionLocalVariableDict[var])):
-                blockDependedVar[var] = True
 
     for key in functionExpression: #data dependency in local expression
         for exp in functionExpression[key]:
             if (check_2(exp) or check_1(exp)):
-                blockDependedVar[exp.left.baseName] = True
+                blockDependedVar[exp.left.baseName] = True  
+
+    for var in functionLocalVariableDict: #data dependency on local variable
+        if (check_0(functionLocalVariableDict[var])):
+            blockDependedVar[var] = True
+        if (check_1(functionLocalVariableDict[var])):
+            blockDependedVar[var] = True
+        if (check_2(functionLocalVariableDict[var])):
+            blockDependedVar[var] = True
 
     for con in AllConditionStatment:
         left = con.left.baseName #varName

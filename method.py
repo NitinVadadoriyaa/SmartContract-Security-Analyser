@@ -287,6 +287,7 @@ def method_Information():
 
                             elif intializeType == "Identifier":
                                 value = obj1["name"]
+                                baseName = value
 
                             elif intializeType == "BooleanLiteral":
                                 value = "False" if obj1["value"] == "false" else "true"
@@ -487,35 +488,36 @@ def method_Information():
     #         print(exp.right.childMember)
     #         print()
         
-    # for key in functionLocalVariable:
-    #     print(key)
-    #     print(len(functionLocalVariable[key]))
-    #     for exp in functionLocalVariable[key]:
-    #         print(exp.dataType)
-    #         print(exp.varName)
-    #         print(exp.storageLoc)
-    #         print(exp.value)
-    #         print(exp.intializeType)
-    #         print(exp.parentMember)
-    #         print(exp.childMember)
-    #         print(exp.baseName)
-    #         print(exp.indexType)
-    #         print(exp.operator)
-    #         if exp.left != "None":
-    #             print(exp.left.type)
-    #             print(exp.left.value)
-    #             print(exp.left.baseName)#varName
-    #             print(exp.left.indexType)
-    #             print(exp.left.parentMember)
-    #             print(exp.left.childMember)
-    #         if exp.right != "None":
-    #             print(exp.right.type)
-    #             print(exp.right.value)
-    #             print(exp.right.baseName)#varName
-    #             print(exp.right.indexType)
-    #             print(exp.right.parentMember)
-    #             print(exp.right.childMember)
-    #         print()
+    for key in functionLocalVariable:
+        print(key)
+        print()
+        # print(len(functionLocalVariable[key]))
+        for exp in functionLocalVariable[key]:
+            print(exp.dataType)
+            print(exp.varName)
+            print(exp.storageLoc)
+            print(exp.value)
+            print(exp.intializeType)
+            print(exp.parentMember)
+            print(exp.childMember)
+            print(exp.baseName)
+            print(exp.indexType)
+            print(exp.operator)
+            if exp.left != "None":
+                print(exp.left.type)
+                print(exp.left.value)
+                print(exp.left.baseName)#varName
+                print(exp.left.indexType)
+                print(exp.left.parentMember)
+                print(exp.left.childMember)
+            if exp.right != "None":
+                print(exp.right.type)
+                print(exp.right.value)
+                print(exp.right.baseName)#varName
+                print(exp.right.indexType)
+                print(exp.right.parentMember)
+                print(exp.right.childMember)
+            print()
 
     # for exp in AllConditionStatment:  
     #     print(exp.type)

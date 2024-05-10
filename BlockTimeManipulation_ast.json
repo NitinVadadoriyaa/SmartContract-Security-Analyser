@@ -50,107 +50,6 @@
           "initialValue": null
         },
         {
-          "type": "StateVariableDeclaration",
-          "variables": [
-            {
-              "type": "VariableDeclaration",
-              "typeName": {
-                "type": "ElementaryTypeName",
-                "name": "uint"
-              },
-              "name": "tim",
-              "expression": {
-                "type": "MemberAccess",
-                "expression": {
-                  "type": "Identifier",
-                  "name": "block"
-                },
-                "memberName": "timestamp"
-              },
-              "visibility": "default",
-              "isStateVar": true,
-              "isDeclaredConst": false,
-              "isIndexed": false
-            }
-          ],
-          "initialValue": {
-            "type": "MemberAccess",
-            "expression": {
-              "type": "Identifier",
-              "name": "block"
-            },
-            "memberName": "timestamp"
-          }
-        },
-        {
-          "type": "StateVariableDeclaration",
-          "variables": [
-            {
-              "type": "VariableDeclaration",
-              "typeName": {
-                "type": "ElementaryTypeName",
-                "name": "uint"
-              },
-              "name": "tim2",
-              "expression": {
-                "type": "BinaryOperation",
-                "operator": "*",
-                "left": {
-                  "type": "NumberLiteral",
-                  "number": "10",
-                  "subdenomination": null
-                },
-                "right": {
-                  "type": "Identifier",
-                  "name": "tim"
-                }
-              },
-              "visibility": "public",
-              "isStateVar": true,
-              "isDeclaredConst": false,
-              "isIndexed": false
-            }
-          ],
-          "initialValue": {
-            "type": "BinaryOperation",
-            "operator": "*",
-            "left": {
-              "type": "NumberLiteral",
-              "number": "10",
-              "subdenomination": null
-            },
-            "right": {
-              "type": "Identifier",
-              "name": "tim"
-            }
-          }
-        },
-        {
-          "type": "StateVariableDeclaration",
-          "variables": [
-            {
-              "type": "VariableDeclaration",
-              "typeName": {
-                "type": "ElementaryTypeName",
-                "name": "uint"
-              },
-              "name": "tim3",
-              "expression": {
-                "type": "Identifier",
-                "name": "tim2"
-              },
-              "visibility": "public",
-              "isStateVar": true,
-              "isDeclaredConst": false,
-              "isIndexed": false
-            }
-          ],
-          "initialValue": {
-            "type": "Identifier",
-            "name": "tim2"
-          }
-        },
-        {
           "type": "FunctionDefinition",
           "name": "constructor",
           "parameters": {
@@ -267,21 +166,6 @@
                       "type": "ElementaryTypeName",
                       "name": "uint"
                     },
-                    "name": "bt1",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": null
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "uint"
-                    },
                     "name": "bt",
                     "storageLocation": null
                   }
@@ -305,37 +189,13 @@
                 }
               },
               {
-                "type": "ExpressionStatement",
-                "expression": {
-                  "type": "BinaryOperation",
-                  "operator": "=",
-                  "left": {
-                    "type": "Identifier",
-                    "name": "bt1"
-                  },
-                  "right": {
-                    "type": "BinaryOperation",
-                    "operator": "*",
-                    "left": {
-                      "type": "NumberLiteral",
-                      "number": "100",
-                      "subdenomination": null
-                    },
-                    "right": {
-                      "type": "Identifier",
-                      "name": "bt"
-                    }
-                  }
-                }
-              },
-              {
                 "type": "IfStatement",
                 "condition": {
                   "type": "BinaryOperation",
                   "operator": "!=",
                   "left": {
                     "type": "Identifier",
-                    "name": "tim3"
+                    "name": "bt"
                   },
                   "right": {
                     "type": "NumberLiteral",

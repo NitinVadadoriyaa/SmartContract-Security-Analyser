@@ -17,33 +17,6 @@
             {
               "type": "VariableDeclaration",
               "typeName": {
-                "type": "ElementaryTypeName",
-                "name": "uint"
-              },
-              "name": "x",
-              "expression": {
-                "type": "NumberLiteral",
-                "number": "10",
-                "subdenomination": null
-              },
-              "visibility": "private",
-              "isStateVar": true,
-              "isDeclaredConst": false,
-              "isIndexed": false
-            }
-          ],
-          "initialValue": {
-            "type": "NumberLiteral",
-            "number": "10",
-            "subdenomination": null
-          }
-        },
-        {
-          "type": "StateVariableDeclaration",
-          "variables": [
-            {
-              "type": "VariableDeclaration",
-              "typeName": {
                 "type": "Mapping",
                 "keyType": {
                   "type": "ElementaryTypeName",
@@ -126,21 +99,6 @@
                   ],
                   "names": []
                 }
-              },
-              {
-                "type": "VariableDeclarationStatement",
-                "variables": [
-                  {
-                    "type": "VariableDeclaration",
-                    "typeName": {
-                      "type": "ElementaryTypeName",
-                      "name": "address"
-                    },
-                    "name": "winner",
-                    "storageLocation": null
-                  }
-                ],
-                "initialValue": null
               },
               {
                 "type": "ExpressionStatement",

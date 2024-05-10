@@ -2,12 +2,10 @@
 pragma solidity ^0.8.24;
 
 contract Bank {
- uint private  x = 10;
     mapping (address => uint256) accounts;
 
     function withdraw(uint _value) external payable {
         require(accounts[msg.sender] >= _value, "You can not withdraw more then you hold!");
-        address winner;
         payable (msg.sender).transfer(_value);
 
         accounts[msg.sender] -= _value;
