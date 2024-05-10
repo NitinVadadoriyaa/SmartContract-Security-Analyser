@@ -316,6 +316,7 @@ def method_Information():
 
                                     if indexType == "MemberAccess":
                                         parentMember = obj["left"]["index"]["expression"]["name"]
+                                        print("left + member")
                                         childMember = obj["left"]["index"]["memberName"]
                                     elif indexType == "NumberLiteral":
                                         value = obj["left"]["number"]

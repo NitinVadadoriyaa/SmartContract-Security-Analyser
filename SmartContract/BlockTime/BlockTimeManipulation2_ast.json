@@ -1,0 +1,208 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.8.24"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "GuessTheRandomNumber",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "FunctionDefinition",
+          "name": "constructor",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": []
+          },
+          "visibility": "default",
+          "modifiers": [],
+          "isConstructor": true,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "payable"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "guess",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint256"
+                },
+                "name": "_guess",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "ElementaryTypeName",
+                      "name": "uint256"
+                    },
+                    "name": "answer",
+                    "storageLocation": null
+                  }
+                ],
+                "initialValue": {
+                  "type": "BinaryOperation",
+                  "operator": "+",
+                  "left": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "block"
+                    },
+                    "memberName": "timestamp"
+                  },
+                  "right": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "block"
+                    },
+                    "memberName": "number"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "answer"
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": "*",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "answer"
+                    },
+                    "right": {
+                      "type": "NumberLiteral",
+                      "number": "555",
+                      "subdenomination": null
+                    }
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "answer"
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": "%",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "answer"
+                    },
+                    "right": {
+                      "type": "NumberLiteral",
+                      "number": "1000",
+                      "subdenomination": null
+                    }
+                  }
+                }
+              },
+              {
+                "type": "IfStatement",
+                "condition": {
+                  "type": "BinaryOperation",
+                  "operator": "==",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "_guess"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "answer"
+                  }
+                },
+                "TrueBody": {
+                  "type": "Block",
+                  "statements": [
+                    {
+                      "type": "ExpressionStatement",
+                      "expression": {
+                        "type": "FunctionCall",
+                        "expression": {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "FunctionCall",
+                            "expression": {
+                              "type": "Identifier",
+                              "name": "payable"
+                            },
+                            "arguments": [
+                              {
+                                "type": "MemberAccess",
+                                "expression": {
+                                  "type": "Identifier",
+                                  "name": "msg"
+                                },
+                                "memberName": "sender"
+                              }
+                            ],
+                            "names": []
+                          },
+                          "memberName": "transfer"
+                        },
+                        "arguments": [
+                          {
+                            "type": "NumberLiteral",
+                            "number": "1",
+                            "subdenomination": "ether"
+                          }
+                        ],
+                        "names": []
+                      }
+                    }
+                  ]
+                },
+                "FalseBody": null
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}

@@ -117,6 +117,7 @@ def doAnalysis():
         if (check_2(functionLocalVariableDict[var])):
             blockDependedVar[var] = True
 
+   
     for con in AllConditionStatment:
         left = con.left.baseName #varName
         right = con.right.baseName #varName
