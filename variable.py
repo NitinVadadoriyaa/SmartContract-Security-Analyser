@@ -25,8 +25,9 @@ def stateVariable():
     
     #body for Integer-datatype
     class Integer:
-        def __init__(self,dataType,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName):
+        def __init__(self,dataType,isParameter,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName):
             self.dataType = dataType
+            self.isParameter = False
             self.varName = varName
             self.visibility = visibility
             self.value = value
@@ -124,7 +125,7 @@ def stateVariable():
                 keyTypeName = key["variables"][0]["typeName"]["keyType"]["name"] #datatype name
                 valueTypeName = key["variables"][0]["typeName"]["valueType"]["name"] #datatype name"
 
-            stateVariables.append(Integer(dataType,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName))
+            stateVariables.append(Integer(dataType,False,varName,visibility,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right,funcName,keyTypeName,valueTypeName))
     
     # for var in stateVariables:
     #     print("dataType : " + var.dataType)

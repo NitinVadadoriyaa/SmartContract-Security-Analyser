@@ -108,6 +108,8 @@ def doAnalysis():
                 blockDependedVar[exp.left.baseName] = True  
 
     for var in functionLocalVariableDict: #data dependency on local variable
+        if functionLocalVariableDict[var].isParameter == True:
+            continue
         if (check_0(functionLocalVariableDict[var])):
             blockDependedVar[var] = True
         if (check_1(functionLocalVariableDict[var])):

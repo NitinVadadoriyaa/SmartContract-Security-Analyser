@@ -13,10 +13,11 @@ def method_Information():
 
     #----------Method.Parameter-----------------#
     class Parameter:
-        def __init__(self,type,dataType,varName,storageLocation,isStateVar):
+        def __init__(self,type,dataType,varName,isParameter,storageLocation,isStateVar):
             self.type = type
             self.dataType = dataType
             self.varName = varName#variable name
+            self.isParameter = True
             self.storageLocation = storageLocation
             self.isStateVar = isStateVar
 
@@ -55,8 +56,9 @@ def method_Information():
     functionExpression = {} 
 
     class LocalVariable:
-        def __init__(self,dataType,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right):
+        def __init__(self,dataType,isParameter,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right):
             self.dataType = dataType
+            self.isParameter = False
             self.varName = varName#variable name
             self.storageLoc = storageLoc
             self.value = value
@@ -96,11 +98,11 @@ def method_Information():
 
             if len(key["parameters"]["parameters"]) != 0: #--- input parameters ---#
                 for obj in key["parameters"]["parameters"]:
-                    parameterList.append(Parameter(obj["typeName"]["type"],obj["typeName"]["name"],obj["name"],obj["storageLocation"],obj["isStateVar"]))
+                    parameterList.append(Parameter(obj["typeName"]["type"],obj["typeName"]["name"],obj["name"],False,obj["storageLocation"],obj["isStateVar"]))
 
             if len(key["returnParameters"]) != 0: #--- return parameters ---#
                 obj = key["returnParameters"]["parameters"][0]
-                returnParameterList.append(Parameter(obj["typeName"]["type"],obj["typeName"]["name"],obj["name"],obj["storageLocation"],obj["isStateVar"]))
+                returnParameterList.append(Parameter(obj["typeName"]["type"],obj["typeName"]["name"],obj["name"],False,obj["storageLocation"],obj["isStateVar"]))
             
             allMethods.append(Method(funcName,visibility,isConstructor,isFallback,isReceive,stateMutability,parameterList,returnParameterList))
             
@@ -370,7 +372,7 @@ def method_Information():
                         else:
                             value = "False" if dataType == "bool" else "0"
 
-                        allLocalVariable.append(LocalVariable(dataType,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right))
+                        allLocalVariable.append(LocalVariable(dataType,False,varName,storageLoc,value,intializeType,parentMember,childMember,baseName,indexType,operator,left,right))
 
                     elif obj["type"] == "IfStatement":#--------Only Local Variable--------#
                         type = obj["condition"]["type"]
