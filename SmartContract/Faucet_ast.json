@@ -1,0 +1,120 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "0.6.4"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "Faucet",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "FunctionDefinition",
+          "name": "receive",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": []
+          },
+          "visibility": "external",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": true,
+          "stateMutability": "payable"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "withdraw",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "withdraw_amount",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": "<=",
+                      "left": {
+                        "type": "Identifier",
+                        "name": "withdraw_amount"
+                      },
+                      "right": {
+                        "type": "NumberLiteral",
+                        "number": "100000000000000000",
+                        "subdenomination": null
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    },
+                    "memberName": "transfer"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "withdraw_amount"
+                    }
+                  ],
+                  "names": []
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}

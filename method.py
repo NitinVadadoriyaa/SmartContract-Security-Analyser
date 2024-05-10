@@ -269,7 +269,11 @@ def method_Information():
                         right = "None"
 
                         obj1 = obj["variables"][0]
-                        dataType = obj1["typeName"]["name"]
+                        if "name" in obj1["typeName"]:
+                            dataType = obj1["typeName"]["name"]
+                        else:
+                            dataType = obj1["typeName"]["namePath"]
+
                         varName = obj1["name"]
                         storageLoc = obj1["storageLocation"]
                         if obj["initialValue"] != None: #-----------in ast null == None in python-----------#

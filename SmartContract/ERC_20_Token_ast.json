@@ -1,0 +1,261 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.8.24"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "ERC20Token",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "string"
+              },
+              "name": "name",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "string"
+              },
+              "name": "symbol",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint8"
+              },
+              "name": "decimals",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "18",
+                "subdenomination": null
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "18",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint256"
+              },
+              "name": "totalSupply",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "Mapping",
+                "keyType": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "valueType": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint256"
+                }
+              },
+              "name": "balanceOf",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "constructor",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint256"
+                },
+                "name": "initialSupply",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": "tokenName",
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": "tokenSymbol",
+                "storageLocation": "memory",
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "totalSupply"
+                  },
+                  "right": {
+                    "type": "BinaryOperation",
+                    "operator": "*",
+                    "left": {
+                      "type": "Identifier",
+                      "name": "initialSupply"
+                    },
+                    "right": {
+                      "type": "Identifier",
+                      "name": "decimals"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "Identifier",
+                      "name": "balanceOf"
+                    },
+                    "index": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "totalSupply"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "name"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "tokenName"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "symbol"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "tokenSymbol"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "default",
+          "modifiers": [],
+          "isConstructor": true,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}

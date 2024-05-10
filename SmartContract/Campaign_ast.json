@@ -1,0 +1,1074 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.4.17"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "Campaign",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StructDefinition",
+          "name": "Request",
+          "members": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "string"
+              },
+              "name": "description",
+              "storageLocation": null
+            },
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "value",
+              "storageLocation": null
+            },
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "address"
+              },
+              "name": "recipient",
+              "storageLocation": null
+            },
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "bool"
+              },
+              "name": "complete",
+              "storageLocation": null
+            },
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "approvalCount",
+              "storageLocation": null
+            },
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "Mapping",
+                "keyType": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "valueType": {
+                  "type": "ElementaryTypeName",
+                  "name": "bool"
+                }
+              },
+              "name": "approvals",
+              "storageLocation": null
+            }
+          ]
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ArrayTypeName",
+                "baseTypeName": {
+                  "type": "UserDefinedTypeName",
+                  "namePath": "Request"
+                },
+                "length": null
+              },
+              "name": "requests",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "address"
+              },
+              "name": "manager",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "minimumContribution",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "Mapping",
+                "keyType": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "valueType": {
+                  "type": "ElementaryTypeName",
+                  "name": "bool"
+                }
+              },
+              "name": "approvers",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "approversCount",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "0",
+                "subdenomination": null
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "0",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "ModifierDefinition",
+          "name": "restricted",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": "==",
+                      "left": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "msg"
+                        },
+                        "memberName": "sender"
+                      },
+                      "right": {
+                        "type": "Identifier",
+                        "name": "manager"
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "Identifier",
+                  "name": "_"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "Campaign",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "minimum",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "name": "creater",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "manager"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "creater"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "minimumContribution"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "minimum"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "contribute",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": ">",
+                      "left": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "msg"
+                        },
+                        "memberName": "value"
+                      },
+                      "right": {
+                        "type": "Identifier",
+                        "name": "minimumContribution"
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "Identifier",
+                      "name": "approvers"
+                    },
+                    "index": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
+                  },
+                  "right": {
+                    "type": "BooleanLiteral",
+                    "value": true
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "UnaryOperation",
+                  "operator": "++",
+                  "subExpression": {
+                    "type": "Identifier",
+                    "name": "approversCount"
+                  },
+                  "isPrefix": false
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "payable"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "createRequest",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "string"
+                },
+                "name": "_description",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "_value",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "name": "_reipient",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "UserDefinedTypeName",
+                      "namePath": "Request"
+                    },
+                    "name": "newRequest",
+                    "storageLocation": "memory"
+                  }
+                ],
+                "initialValue": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "Request"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "_description"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "_value"
+                    },
+                    {
+                      "type": "Identifier",
+                      "name": "_reipient"
+                    },
+                    {
+                      "type": "BooleanLiteral",
+                      "value": false
+                    },
+                    {
+                      "type": "NumberLiteral",
+                      "number": "0",
+                      "subdenomination": null
+                    }
+                  ],
+                  "names": [
+                    "description",
+                    "value",
+                    "recipient",
+                    "complete",
+                    "approvalCount"
+                  ]
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "requests"
+                    },
+                    "memberName": "push"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "newRequest"
+                    }
+                  ],
+                  "names": []
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [
+            {
+              "type": "ModifierInvocation",
+              "name": "restricted",
+              "arguments": []
+            }
+          ],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "payable"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "approveRequest",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "index",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "UserDefinedTypeName",
+                      "namePath": "Request"
+                    },
+                    "name": "request",
+                    "storageLocation": "storage"
+                  }
+                ],
+                "initialValue": {
+                  "type": "IndexAccess",
+                  "base": {
+                    "type": "Identifier",
+                    "name": "requests"
+                  },
+                  "index": {
+                    "type": "Identifier",
+                    "name": "index"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "IndexAccess",
+                      "base": {
+                        "type": "Identifier",
+                        "name": "approvers"
+                      },
+                      "index": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "msg"
+                        },
+                        "memberName": "sender"
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": "<",
+                      "left": {
+                        "type": "Identifier",
+                        "name": "index"
+                      },
+                      "right": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "requests"
+                        },
+                        "memberName": "length"
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "UnaryOperation",
+                      "operator": "!",
+                      "subExpression": {
+                        "type": "IndexAccess",
+                        "base": {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "request"
+                          },
+                          "memberName": "approvals"
+                        },
+                        "index": {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "msg"
+                          },
+                          "memberName": "sender"
+                        }
+                      },
+                      "isPrefix": true
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "IndexAccess",
+                    "base": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "request"
+                      },
+                      "memberName": "approvals"
+                    },
+                    "index": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
+                  },
+                  "right": {
+                    "type": "BooleanLiteral",
+                    "value": true
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "UnaryOperation",
+                  "operator": "++",
+                  "subExpression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "request"
+                    },
+                    "memberName": "approvalCount"
+                  },
+                  "isPrefix": false
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "payable"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "finalizeRequest",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "index",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "UserDefinedTypeName",
+                      "namePath": "Request"
+                    },
+                    "name": "request",
+                    "storageLocation": "storage"
+                  }
+                ],
+                "initialValue": {
+                  "type": "IndexAccess",
+                  "base": {
+                    "type": "Identifier",
+                    "name": "requests"
+                  },
+                  "index": {
+                    "type": "Identifier",
+                    "name": "index"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "UnaryOperation",
+                      "operator": "!",
+                      "subExpression": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "request"
+                        },
+                        "memberName": "complete"
+                      },
+                      "isPrefix": true
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": ">",
+                      "left": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "request"
+                        },
+                        "memberName": "approvalCount"
+                      },
+                      "right": {
+                        "type": "TupleExpression",
+                        "components": [
+                          {
+                            "type": "BinaryOperation",
+                            "operator": "/",
+                            "left": {
+                              "type": "Identifier",
+                              "name": "approversCount"
+                            },
+                            "right": {
+                              "type": "NumberLiteral",
+                              "number": "2",
+                              "subdenomination": null
+                            }
+                          }
+                        ],
+                        "isArray": false
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "request"
+                    },
+                    "memberName": "complete"
+                  },
+                  "right": {
+                    "type": "BooleanLiteral",
+                    "value": true
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "request"
+                      },
+                      "memberName": "recipient"
+                    },
+                    "memberName": "transfer"
+                  },
+                  "arguments": [
+                    {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "request"
+                      },
+                      "memberName": "value"
+                    }
+                  ],
+                  "names": []
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [
+            {
+              "type": "ModifierInvocation",
+              "name": "restricted",
+              "arguments": []
+            }
+          ],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "payable"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "getSummary",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              },
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "TupleExpression",
+                "components": [
+                  {
+                    "type": "Identifier",
+                    "name": "minimumContribution"
+                  },
+                  {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "this"
+                    },
+                    "memberName": "balance"
+                  },
+                  {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "requests"
+                    },
+                    "memberName": "length"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "approversCount"
+                  },
+                  {
+                    "type": "Identifier",
+                    "name": "manager"
+                  }
+                ],
+                "isArray": false
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "view"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "getRequestsCount",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "MemberAccess",
+                "expression": {
+                  "type": "Identifier",
+                  "name": "requests"
+                },
+                "memberName": "length"
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "view"
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}

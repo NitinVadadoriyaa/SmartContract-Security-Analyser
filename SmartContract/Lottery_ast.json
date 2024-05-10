@@ -1,0 +1,420 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.4.17"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "Lottery",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "address"
+              },
+              "name": "manager",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ArrayTypeName",
+                "baseTypeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "length": null
+              },
+              "name": "players",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "Lottery",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "manager"
+                  },
+                  "right": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "msg"
+                    },
+                    "memberName": "sender"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "enter",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": ">",
+                      "left": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "msg"
+                        },
+                        "memberName": "value"
+                      },
+                      "right": {
+                        "type": "NumberLiteral",
+                        "number": ".01",
+                        "subdenomination": "ether"
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "players"
+                    },
+                    "memberName": "push"
+                  },
+                  "arguments": [
+                    {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "msg"
+                      },
+                      "memberName": "sender"
+                    }
+                  ],
+                  "names": []
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "payable"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "random",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "FunctionCall",
+                "expression": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "arguments": [
+                  {
+                    "type": "FunctionCall",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "keccak256"
+                    },
+                    "arguments": [
+                      {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "block"
+                        },
+                        "memberName": "difficulty"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "now"
+                      },
+                      {
+                        "type": "Identifier",
+                        "name": "players"
+                      }
+                    ],
+                    "names": []
+                  }
+                ],
+                "names": []
+              }
+            ]
+          },
+          "visibility": "private",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "view"
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "pickWinner",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "ElementaryTypeName",
+                      "name": "uint"
+                    },
+                    "name": "index",
+                    "storageLocation": null
+                  }
+                ],
+                "initialValue": {
+                  "type": "BinaryOperation",
+                  "operator": "%",
+                  "left": {
+                    "type": "FunctionCall",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "random"
+                    },
+                    "arguments": [],
+                    "names": []
+                  },
+                  "right": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "players"
+                    },
+                    "memberName": "length"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "IndexAccess",
+                      "base": {
+                        "type": "Identifier",
+                        "name": "players"
+                      },
+                      "index": {
+                        "type": "Identifier",
+                        "name": "index"
+                      }
+                    },
+                    "memberName": "transfer"
+                  },
+                  "arguments": [
+                    {
+                      "type": "MemberAccess",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "this"
+                      },
+                      "memberName": "balance"
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "players"
+                  },
+                  "right": {
+                    "type": "FunctionCall",
+                    "expression": {
+                      "type": "NewExpression",
+                      "typeName": {
+                        "type": "ArrayTypeName",
+                        "baseTypeName": {
+                          "type": "ElementaryTypeName",
+                          "name": "address"
+                        },
+                        "length": null
+                      }
+                    },
+                    "arguments": [
+                      {
+                        "type": "NumberLiteral",
+                        "number": "0",
+                        "subdenomination": null
+                      }
+                    ],
+                    "names": []
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [
+            {
+              "type": "ModifierInvocation",
+              "name": "restricted",
+              "arguments": []
+            }
+          ],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "ModifierDefinition",
+          "name": "restricted",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": "==",
+                      "left": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "msg"
+                        },
+                        "memberName": "sender"
+                      },
+                      "right": {
+                        "type": "Identifier",
+                        "name": "manager"
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "Identifier",
+                  "name": "_"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}
