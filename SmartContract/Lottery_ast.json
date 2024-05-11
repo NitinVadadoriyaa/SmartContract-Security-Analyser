@@ -291,15 +291,25 @@
                   "expression": {
                     "type": "MemberAccess",
                     "expression": {
-                      "type": "IndexAccess",
-                      "base": {
+                      "type": "FunctionCall",
+                      "expression": {
                         "type": "Identifier",
-                        "name": "players"
+                        "name": "payable"
                       },
-                      "index": {
-                        "type": "Identifier",
-                        "name": "index"
-                      }
+                      "arguments": [
+                        {
+                          "type": "IndexAccess",
+                          "base": {
+                            "type": "Identifier",
+                            "name": "players"
+                          },
+                          "index": {
+                            "type": "Identifier",
+                            "name": "index"
+                          }
+                        }
+                      ],
+                      "names": []
                     },
                     "memberName": "transfer"
                   },

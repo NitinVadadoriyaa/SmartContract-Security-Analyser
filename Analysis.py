@@ -136,7 +136,7 @@ def doAnalysis():
     #function must be external
     #function send token to caller
     for method in allMethods:
-        if method.visibility == "external":
+        if method.visibility == "external" or method.visibility == "public":
             #TODO : YOU HAVE TO JUST IDENTIFY SENDER METHOD INVOLE IN CURRENT METHOD OR NOT
             for exp in functionExpression[method.funcName]:
                 

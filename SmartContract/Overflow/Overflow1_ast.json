@@ -64,25 +64,6 @@
           "initialValue": null
         },
         {
-          "type": "StateVariableDeclaration",
-          "variables": [
-            {
-              "type": "VariableDeclaration",
-              "typeName": {
-                "type": "ElementaryTypeName",
-                "name": "uint"
-              },
-              "name": "a",
-              "expression": null,
-              "visibility": "public",
-              "isStateVar": true,
-              "isDeclaredConst": false,
-              "isIndexed": false
-            }
-          ],
-          "initialValue": null
-        },
-        {
           "type": "FunctionDefinition",
           "name": "deposit",
           "parameters": {
@@ -152,18 +133,6 @@
                     "memberName": "timestamp"
                   }
                 }
-              },
-              {
-                "type": "ExpressionStatement",
-                "expression": {
-                  "type": "UnaryOperation",
-                  "operator": "--",
-                  "subExpression": {
-                    "type": "Identifier",
-                    "name": "a"
-                  },
-                  "isPrefix": false
-                }
               }
             ]
           },
@@ -220,142 +189,6 @@
                   "right": {
                     "type": "Identifier",
                     "name": "_secondsToIncrease"
-                  }
-                }
-              },
-              {
-                "type": "ExpressionStatement",
-                "expression": {
-                  "type": "BinaryOperation",
-                  "operator": "=",
-                  "left": {
-                    "type": "IndexAccess",
-                    "base": {
-                      "type": "Identifier",
-                      "name": "lockTime"
-                    },
-                    "index": {
-                      "type": "MemberAccess",
-                      "expression": {
-                        "type": "Identifier",
-                        "name": "msg"
-                      },
-                      "memberName": "sender"
-                    }
-                  },
-                  "right": {
-                    "type": "BinaryOperation",
-                    "operator": "+",
-                    "left": {
-                      "type": "IndexAccess",
-                      "base": {
-                        "type": "Identifier",
-                        "name": "lockTime"
-                      },
-                      "index": {
-                        "type": "MemberAccess",
-                        "expression": {
-                          "type": "Identifier",
-                          "name": "msg"
-                        },
-                        "memberName": "sender"
-                      }
-                    },
-                    "right": {
-                      "type": "Identifier",
-                      "name": "_secondsToIncrease"
-                    }
-                  }
-                }
-              },
-              {
-                "type": "ExpressionStatement",
-                "expression": {
-                  "type": "BinaryOperation",
-                  "operator": "=",
-                  "left": {
-                    "type": "IndexAccess",
-                    "base": {
-                      "type": "Identifier",
-                      "name": "lockTime"
-                    },
-                    "index": {
-                      "type": "MemberAccess",
-                      "expression": {
-                        "type": "Identifier",
-                        "name": "msg"
-                      },
-                      "memberName": "sender"
-                    }
-                  },
-                  "right": {
-                    "type": "BinaryOperation",
-                    "operator": "*",
-                    "left": {
-                      "type": "IndexAccess",
-                      "base": {
-                        "type": "Identifier",
-                        "name": "lockTime"
-                      },
-                      "index": {
-                        "type": "MemberAccess",
-                        "expression": {
-                          "type": "Identifier",
-                          "name": "msg"
-                        },
-                        "memberName": "sender"
-                      }
-                    },
-                    "right": {
-                      "type": "Identifier",
-                      "name": "_secondsToIncrease"
-                    }
-                  }
-                }
-              },
-              {
-                "type": "ExpressionStatement",
-                "expression": {
-                  "type": "BinaryOperation",
-                  "operator": "=",
-                  "left": {
-                    "type": "IndexAccess",
-                    "base": {
-                      "type": "Identifier",
-                      "name": "lockTime"
-                    },
-                    "index": {
-                      "type": "MemberAccess",
-                      "expression": {
-                        "type": "Identifier",
-                        "name": "msg"
-                      },
-                      "memberName": "sender"
-                    }
-                  },
-                  "right": {
-                    "type": "BinaryOperation",
-                    "operator": "*",
-                    "left": {
-                      "type": "IndexAccess",
-                      "base": {
-                        "type": "Identifier",
-                        "name": "lockTime"
-                      },
-                      "index": {
-                        "type": "MemberAccess",
-                        "expression": {
-                          "type": "Identifier",
-                          "name": "msg"
-                        },
-                        "memberName": "sender"
-                      }
-                    },
-                    "right": {
-                      "type": "NumberLiteral",
-                      "number": "100",
-                      "subdenomination": null
-                    }
                   }
                 }
               }
@@ -491,6 +324,41 @@
                     },
                     "memberName": "sender"
                   }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "FunctionCall",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "payable"
+                      },
+                      "arguments": [
+                        {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "msg"
+                          },
+                          "memberName": "sender"
+                        }
+                      ],
+                      "names": []
+                    },
+                    "memberName": "transfer"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "amount"
+                    }
+                  ],
+                  "names": []
                 }
               },
               {

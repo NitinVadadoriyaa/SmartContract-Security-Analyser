@@ -86,12 +86,22 @@
                   "expression": {
                     "type": "MemberAccess",
                     "expression": {
-                      "type": "MemberAccess",
+                      "type": "FunctionCall",
                       "expression": {
                         "type": "Identifier",
-                        "name": "msg"
+                        "name": "payable"
                       },
-                      "memberName": "sender"
+                      "arguments": [
+                        {
+                          "type": "MemberAccess",
+                          "expression": {
+                            "type": "Identifier",
+                            "name": "msg"
+                          },
+                          "memberName": "sender"
+                        }
+                      ],
+                      "names": []
                     },
                     "memberName": "transfer"
                   },

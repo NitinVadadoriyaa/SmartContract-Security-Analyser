@@ -1,0 +1,604 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.8.24"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "Primitives",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint256"
+              },
+              "name": "timestamp",
+              "expression": {
+                "type": "MemberAccess",
+                "expression": {
+                  "type": "Identifier",
+                  "name": "block"
+                },
+                "memberName": "timestamp"
+              },
+              "visibility": "default",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "MemberAccess",
+            "expression": {
+              "type": "Identifier",
+              "name": "block"
+            },
+            "memberName": "timestamp"
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "address"
+              },
+              "name": "sender",
+              "expression": {
+                "type": "MemberAccess",
+                "expression": {
+                  "type": "Identifier",
+                  "name": "msg"
+                },
+                "memberName": "sender"
+              },
+              "visibility": "default",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "MemberAccess",
+            "expression": {
+              "type": "Identifier",
+              "name": "msg"
+            },
+            "memberName": "sender"
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "bool"
+              },
+              "name": "boo",
+              "expression": {
+                "type": "BooleanLiteral",
+                "value": true
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "BooleanLiteral",
+            "value": true
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "string"
+              },
+              "name": "text",
+              "expression": {
+                "type": "stringLiteral",
+                "value": "Hello"
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "stringLiteral",
+            "value": "Hello"
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "Mapping",
+                "keyType": {
+                  "type": "ElementaryTypeName",
+                  "name": "address"
+                },
+                "valueType": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint16"
+                }
+              },
+              "name": "balance",
+              "expression": null,
+              "visibility": "default",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "fun",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "num",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": null,
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "Identifier",
+                "name": "num"
+              }
+            ]
+          },
+          "visibility": "default",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "pure"
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint256"
+              },
+              "name": "u256",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "456",
+                "subdenomination": null
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "456",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint256"
+              },
+              "name": "u",
+              "expression": {
+                "type": "BinaryOperation",
+                "operator": "+",
+                "left": {
+                  "type": "NumberLiteral",
+                  "number": "200",
+                  "subdenomination": null
+                },
+                "right": {
+                  "type": "Identifier",
+                  "name": "u256"
+                }
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "BinaryOperation",
+            "operator": "+",
+            "left": {
+              "type": "NumberLiteral",
+              "number": "200",
+              "subdenomination": null
+            },
+            "right": {
+              "type": "Identifier",
+              "name": "u256"
+            }
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint8"
+              },
+              "name": "u8",
+              "expression": {
+                "type": "BinaryOperation",
+                "operator": "+",
+                "left": {
+                  "type": "NumberLiteral",
+                  "number": "1",
+                  "subdenomination": null
+                },
+                "right": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "fun"
+                  },
+                  "arguments": [
+                    {
+                      "type": "NumberLiteral",
+                      "number": "100",
+                      "subdenomination": null
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "BinaryOperation",
+            "operator": "+",
+            "left": {
+              "type": "NumberLiteral",
+              "number": "1",
+              "subdenomination": null
+            },
+            "right": {
+              "type": "FunctionCall",
+              "expression": {
+                "type": "Identifier",
+                "name": "fun"
+              },
+              "arguments": [
+                {
+                  "type": "NumberLiteral",
+                  "number": "100",
+                  "subdenomination": null
+                }
+              ],
+              "names": []
+            }
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "int8"
+              },
+              "name": "i8",
+              "expression": {
+                "type": "UnaryOperation",
+                "operator": "-",
+                "subExpression": {
+                  "type": "NumberLiteral",
+                  "number": "1",
+                  "subdenomination": null
+                },
+                "isPrefix": true
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "UnaryOperation",
+            "operator": "-",
+            "subExpression": {
+              "type": "NumberLiteral",
+              "number": "1",
+              "subdenomination": null
+            },
+            "isPrefix": true
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "int256"
+              },
+              "name": "i256",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "456",
+                "subdenomination": null
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "456",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "int256"
+              },
+              "name": "i",
+              "expression": {
+                "type": "UnaryOperation",
+                "operator": "-",
+                "subExpression": {
+                  "type": "NumberLiteral",
+                  "number": "123",
+                  "subdenomination": null
+                },
+                "isPrefix": true
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "UnaryOperation",
+            "operator": "-",
+            "subExpression": {
+              "type": "NumberLiteral",
+              "number": "123",
+              "subdenomination": null
+            },
+            "isPrefix": true
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "address"
+              },
+              "name": "addr",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c",
+                "subdenomination": null
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "bytes1"
+              },
+              "name": "a",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "0xb5",
+                "subdenomination": null
+              },
+              "visibility": "default",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "0xb5",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "bytes1"
+              },
+              "name": "b",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "0x56",
+                "subdenomination": null
+              },
+              "visibility": "default",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "0x56",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "bool"
+              },
+              "name": "defaultBoo",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint256"
+              },
+              "name": "defaultUint",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "int256"
+              },
+              "name": "defaultInt",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "address"
+              },
+              "name": "defaultAddr",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}

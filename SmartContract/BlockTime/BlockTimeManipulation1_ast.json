@@ -101,7 +101,7 @@
                       },
                       "right": {
                         "type": "NumberLiteral",
-                        "number": "10",
+                        "number": "1",
                         "subdenomination": "ether"
                       }
                     }
@@ -192,7 +192,7 @@
                 "type": "IfStatement",
                 "condition": {
                   "type": "BinaryOperation",
-                  "operator": "!=",
+                  "operator": "==",
                   "left": {
                     "type": "Identifier",
                     "name": "bt"
@@ -296,12 +296,8 @@
                       },
                       "arguments": [
                         {
-                          "type": "MemberAccess",
-                          "expression": {
-                            "type": "Identifier",
-                            "name": "msg"
-                          },
-                          "memberName": "sender"
+                          "type": "Identifier",
+                          "name": "winner"
                         }
                       ],
                       "names": []

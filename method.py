@@ -134,11 +134,13 @@ def method_Information():
 
                             type = obj["left"]["type"]
                             if type == "IndexAccess":
-                                baseName = obj["left"]["base"]["name"]
+                                if "name" in obj["left"]["base"]:
+                                    baseName = obj["left"]["base"]["name"]
                                 indexType = obj["left"]["index"]["type"]
 
                                 if indexType == "MemberAccess":
                                     parentMember = obj["left"]["index"]["expression"]["name"]
+                                    baseName = parentMember
                                     childMember = obj["left"]["index"]["memberName"]
                                 elif indexType == "NumberLiteral":
                                     value = obj["left"]["number"]

@@ -25,19 +25,19 @@ contract Roulette {
     constructor() payable {}
 
     function spin() external payable {
-        require(msg.value == 10 ether); // must send 10 ether to play
+        require(msg.value == 1 ether); // must send 10 ether to play
         require(block.timestamp != pastBlockTime); // only 1 transaction per block
 
         pastBlockTime = block.timestamp;
        
         uint bt = block.timestamp % 15;
-        if (bt != 0) {
+        if (bt == 0) {
             winner = msg.sender;
         }
     }
 
     function climReward() external {
         require(msg.sender == winner, "You are not winner");
-        payable(msg.sender).transfer(address(this).balance);
+        payable(winner).transfer(address(this).balance);
     }
 }

@@ -1,1 +1,1 @@
-fileName = "SmartContract/Overflow/Overflow4.sol"
+fileName = "SmartContract/Overflow/Burn.sol"

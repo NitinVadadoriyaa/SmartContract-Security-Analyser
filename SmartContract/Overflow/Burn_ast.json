@@ -1,0 +1,225 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "0.6.4"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "Token",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "totalSupply",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint"
+              },
+              "name": "MAX_SUPPLY",
+              "expression": {
+                "type": "NumberLiteral",
+                "number": "1000000",
+                "subdenomination": null
+              },
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": true,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": {
+            "type": "NumberLiteral",
+            "number": "1000000",
+            "subdenomination": null
+          }
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "mint",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "amount",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": "<=",
+                      "left": {
+                        "type": "BinaryOperation",
+                        "operator": "+",
+                        "left": {
+                          "type": "Identifier",
+                          "name": "totalSupply"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "amount"
+                        }
+                      },
+                      "right": {
+                        "type": "Identifier",
+                        "name": "MAX_SUPPLY"
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "+=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "totalSupply"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "amount"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "burn",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": [
+              {
+                "type": "Parameter",
+                "typeName": {
+                  "type": "ElementaryTypeName",
+                  "name": "uint"
+                },
+                "name": "amount",
+                "storageLocation": null,
+                "isStateVar": false,
+                "isIndexed": false
+              }
+            ]
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": ">=",
+                      "left": {
+                        "type": "BinaryOperation",
+                        "operator": "-",
+                        "left": {
+                          "type": "Identifier",
+                          "name": "totalSupply"
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "name": "amount"
+                        }
+                      },
+                      "right": {
+                        "type": "NumberLiteral",
+                        "number": "0",
+                        "subdenomination": null
+                      }
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "-=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "totalSupply"
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "name": "amount"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "public",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": null
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}
