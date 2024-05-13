@@ -140,7 +140,8 @@ def method_Information():
 
                                 if indexType == "MemberAccess":
                                     parentMember = obj["left"]["index"]["expression"]["name"]
-                                    baseName = parentMember
+                                    if baseName == "None":
+                                        baseName = parentMember
                                     childMember = obj["left"]["index"]["memberName"]
                                 elif indexType == "NumberLiteral":
                                     value = obj["left"]["number"]

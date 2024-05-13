@@ -1,0 +1,258 @@
+{
+  "type": "SourceUnit",
+  "children": [
+    {
+      "type": "PragmaDirective",
+      "name": "solidity",
+      "value": "^0.8.24"
+    },
+    {
+      "type": "ContractDefinition",
+      "name": "KingOfEther",
+      "baseContracts": [],
+      "subNodes": [
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "address"
+              },
+              "name": "king",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "StateVariableDeclaration",
+          "variables": [
+            {
+              "type": "VariableDeclaration",
+              "typeName": {
+                "type": "ElementaryTypeName",
+                "name": "uint256"
+              },
+              "name": "balance",
+              "expression": null,
+              "visibility": "public",
+              "isStateVar": true,
+              "isDeclaredConst": false,
+              "isIndexed": false
+            }
+          ],
+          "initialValue": null
+        },
+        {
+          "type": "FunctionDefinition",
+          "name": "claimThrone",
+          "parameters": {
+            "type": "ParameterList",
+            "parameters": []
+          },
+          "returnParameters": [],
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": ">",
+                      "left": {
+                        "type": "MemberAccess",
+                        "expression": {
+                          "type": "Identifier",
+                          "name": "msg"
+                        },
+                        "memberName": "value"
+                      },
+                      "right": {
+                        "type": "Identifier",
+                        "name": "balance"
+                      }
+                    },
+                    {
+                      "type": "stringLiteral",
+                      "value": "Need to pay more to become the king"
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "FunctionCall",
+                      "expression": {
+                        "type": "Identifier",
+                        "name": "payable"
+                      },
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "king"
+                        }
+                      ],
+                      "names": []
+                    },
+                    "memberName": "transfer"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "balance"
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "ElementaryTypeName",
+                      "name": "address"
+                    },
+                    "name": "contractAddr",
+                    "storageLocation": null
+                  }
+                ],
+                "initialValue": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "ElementaryTypeName",
+                    "name": "address"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "this"
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "VariableDeclarationStatement",
+                "variables": [
+                  {
+                    "type": "VariableDeclaration",
+                    "typeName": {
+                      "type": "ElementaryTypeName",
+                      "name": "uint"
+                    },
+                    "name": "currentBalance",
+                    "storageLocation": null
+                  }
+                ],
+                "initialValue": {
+                  "type": "MemberAccess",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "contractAddr"
+                  },
+                  "memberName": "balance"
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "FunctionCall",
+                  "expression": {
+                    "type": "Identifier",
+                    "name": "require"
+                  },
+                  "arguments": [
+                    {
+                      "type": "BinaryOperation",
+                      "operator": "!=",
+                      "left": {
+                        "type": "Identifier",
+                        "name": "currentBalance"
+                      },
+                      "right": {
+                        "type": "NumberLiteral",
+                        "number": "0",
+                        "subdenomination": null
+                      }
+                    },
+                    {
+                      "type": "stringLiteral",
+                      "value": "Failed to send Ether"
+                    }
+                  ],
+                  "names": []
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "balance"
+                  },
+                  "right": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "msg"
+                    },
+                    "memberName": "value"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "BinaryOperation",
+                  "operator": "=",
+                  "left": {
+                    "type": "Identifier",
+                    "name": "king"
+                  },
+                  "right": {
+                    "type": "MemberAccess",
+                    "expression": {
+                      "type": "Identifier",
+                      "name": "msg"
+                    },
+                    "memberName": "sender"
+                  }
+                }
+              }
+            ]
+          },
+          "visibility": "external",
+          "modifiers": [],
+          "isConstructor": false,
+          "isFallback": false,
+          "isReceive": false,
+          "stateMutability": "payable"
+        }
+      ],
+      "kind": "contract"
+    }
+  ]
+}
